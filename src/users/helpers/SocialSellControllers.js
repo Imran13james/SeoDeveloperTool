@@ -29,7 +29,7 @@ const CreateSocialsell = async (req, res) => {
 
     try {
         await newBuySell.save();
-        res.status(201).json({ message: 'Buy_Sell record created successfully' });
+        res.status(201).json({ message: 'Buy Acc record created successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Error creating Buy_Sell record', error });
     }
@@ -39,7 +39,7 @@ const GetSocialsell = async (req, res) => {
         const buySellRecords = await SocialSell.find();
 
         if (buySellRecords.length === 0) {
-            res.status(404).json({ message: 'No Buy_Sell records found' });
+            res.status(404).json({ message: 'No Buy Acc records found' });
             return; // Early return to prevent further processing
         }
 
@@ -63,7 +63,7 @@ const UpdateSocialsell = async (req, res) => {
         const buySellRecord = await SocialSell.findOne({ customerId });
 
         if (!buySellRecord) {
-            res.status(404).json({ message: 'Buy_Sell record not found for the customer ID' });
+            res.status(404).json({ message: 'Buy Acc record not found for the customer ID' });
             return; // Early return to prevent further processing
         }
 
@@ -73,7 +73,7 @@ const UpdateSocialsell = async (req, res) => {
         // Save the updated record
         await buySellRecord.save();
 
-        res.status(200).json({ message: 'Buy_Sell record updated successfully', updatedRecord: buySellRecord }); // Send updated record in response
+        res.status(200).json({ message: 'Buy Acc record updated successfully', updatedRecord: buySellRecord }); // Send updated record in response
     } catch (error) {
         res.status(500).json({ message: 'Error updating Buy_Sell record', error });
     }
@@ -86,13 +86,13 @@ const DeleteSocialsell = async (req, res) => {
         const buySellRecord = await SocialSell.findOneAndDelete({ customerId });
 
         if (!buySellRecord) {
-            res.status(404).json({ message: 'Buy_Sell record not found for the customer ID' });
+            res.status(404).json({ message: 'Buy Acc record not found for the customer ID' });
             return; // Early return to prevent further processing
         }
 
-        res.status(200).json({ message: 'Buy_Sell record deleted successfully' });
+        res.status(200).json({ message: 'Buy Acc record deleted successfully' });
     } catch (error) {
-        res.status(500).json({ message: 'Error deleting Buy_Sell record', error });
+        res.status(500).json({ message: 'Error deleting Buy Acc record', error });
     }
 };
 
