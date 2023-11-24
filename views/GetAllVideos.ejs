@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>All Videos</title>
+  <style>
+    /* Modify the CSS as needed */
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    .video-url {
+      font-style: italic;
+      color: #666;
+    }
+    a {
+      text-decoration: none;
+      color: #007bff;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>Videos List</h1>
+  <% if (videos.length > 0) { %>
+    <ul>
+      <% videos.forEach(video => { %>
+        <li>
+          <strong>Social Media:</strong> <%= video.socialMedia %><br>
+          <strong>Title:</strong> <%= video.video.title %><br>
+          <strong>Description:</strong> <%= video.video.description %><br>
+          <strong>URL:</strong>
+          <span class="video-url"><%= video.video.url %></span><br>
+          <a href="<%= video.video.url %>" target="_blank">Watch video</a>
+        </li>
+      <% }); %>
+    </ul>
+  <% } else { %>
+    <p>No videos found.</p>
+  <% } %>
+</body>
+</html>

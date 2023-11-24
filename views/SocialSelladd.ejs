@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Socail Record</title>
+    <style>
+      body{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+        h1{
+        text-align: center;
+        font-size: 2rem;
+        text-transform: capitalize;
+        /* margin-top: 5rem; */
+        color: black;
+        letter-spacing: 0.2rem;
+        font-weight: 600;
+      }
+      form {
+      display: flex;
+      flex-direction: column;
+      width: clamp(300px , 100% , 400px);
+      margin: 10px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      line-height: 2rem;
+      outline: none;
+      transition: 0.3s ease-in-out;
+      cursor: pointer;
+    }
+    form:hover {
+      box-shadow: rgba(238, 233, 233, 0.19) 0px 10px ,  rgba(219, 212, 212, 0.498) 0px 6px 6px;
+    }
+    form select{
+      padding: 0.5rem 1rem;
+      border-radius: 0.2rem;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    textarea , select:hover{
+      border-color: black;
+    }
+    
+    label {
+      display: block;
+      font-size: 1rem;
+      text-transform: capitalize;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: black;
+    }
+    select , textarea{
+      border: 2px solid rgba(0, 0, 0, 0.324);
+      transition: 0.3s ease-in-out;
+    }
+    textarea{
+      height: 8rem;
+      width: 100%;
+      resize: none;
+    }
+    
+    input[type="text"] {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    
+    button[type="submit"] {
+      margin-top: 10px;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      background-color: #007bff;
+      color: #fff;
+      transition: 0.3s ease-in-out;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+   
+    
+    input[type="text"]:focus {
+      outline: none;
+      border: 2px solid #007bff ;
+    }
+    
+    button[type="submit"]:hover {
+      background-color: #0069d9;
+    }
+    </style>
+</head>
+
+<body>
+    <h1>Add Social Record</h1>
+
+    <form action="/socialsell/create-social-sells" method="POST">
+        <label for="customerId">Customer ID:</label>
+        <input type="number" name="customerId" id="customerId" placeholder="Enter customer ID" required>
+
+        <label for="earningPlatforms">Socil Media Platforms:</label>
+        <select name="EarniningPlatfroms" id="earningPlatforms" required>
+            <option value="YouTube">YouTube</option>
+            <option value="Facebook">Facebook</option>
+            <option value="Instagram">Instagram</option>
+            <option value="Twitter">Twitter</option>
+            <option value="TikTok">TikTok</option>
+            <option value="Website">Website</option>
+            <option value="Snapchat">Snapchat</option>
+            <option value="OtherAccounts">OtherAccounts</option>
+            <option value="Telegram">Telegram</option>
+        </select>
+        
+
+        <label for="serialNumber">Titile:</label>
+        <input type="text" name="SerialNo[title]" id="serialNumber" placeholder="Enter Title" required>
+
+        <label for="accountName">Account Name:</label>
+        <input type="text" name="SerialNo[AccName]" id="accountName" placeholder="Enter account name" required>
+
+        <label for="accountDescription">Account Description:</label>
+        <textarea name="SerialNo[AccountDesccrption]" id="accountDescription" rows="3"
+            placeholder="Enter account description"></textarea>
+
+        <label for="accountUrl">Account URL:</label>
+        <input type="url" name="SerialNo[AccountUrl]" id="accountUrl" placeholder="Enter account URL" required>
+
+        <label for="accountAge">Account Age:</label>
+        <input type="text" name="SerialNo[Account_Age]" id="accountAge" placeholder="Enter account age">
+
+        <button type="submit">Create Socail Record</button>
+    </form>
+</body>
+</html>
+<script>
+    function handleSubmit(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    fetch('/socialsell/create-social-sells', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Handle success message
+            showSuccessMessage(data.message);
+        } else {
+            // Handle error message
+            showErrorMessage(data.errors);
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        showErrorMessage('An unexpected error occurred.');
+    });
+}
+
+</script>

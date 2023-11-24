@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Buy Record</title>
+    <style>
+      body{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+        h1{
+        text-align: center;
+        font-size: 2rem;
+        text-transform: capitalize;
+        /* margin-top: 5rem; */
+        color: black;
+        letter-spacing: 0.2rem;
+        font-weight: 600;
+      }
+      form {
+      display: flex;
+      flex-direction: column;
+      width: clamp(300px , 100% , 350px);
+      margin: 10px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      line-height: 2rem;
+      outline: none;
+      transition: 0.3s ease-in-out;
+      cursor: pointer;
+    }
+    form:hover {
+      box-shadow: rgba(238, 233, 233, 0.19) 0px 10px ,  rgba(219, 212, 212, 0.498) 0px 6px 6px;
+    }
+    form select{
+      padding: 0.5rem 1rem;
+      border-radius: 0.2rem;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    textarea , select:hover{
+      border-color: black;
+    }
+    
+    label {
+      display: block;
+      font-size: 1rem;
+      text-transform: capitalize;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: black;
+    }
+    select , textarea{
+      border: 2px solid rgba(0, 0, 0, 0.324);
+      transition: 0.3s ease-in-out;
+    }
+    textarea{
+      height: 8rem;
+      width: 100%;
+      resize: none;
+    }
+    
+    input[type="text"] {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    
+    button[type="submit"] {
+      margin-top: 10px;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      background-color: #007bff;
+      color: #fff;
+      transition: 0.3s ease-in-out;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+   
+    
+    input[type="text"]:focus {
+      outline: none;
+      border: 2px solid #007bff ;
+    }
+    
+    button[type="submit"]:hover {
+      background-color: #0069d9;
+    }
+    </style>
+</head>
+
+<body>
+  <h1>Update Buy Record</h1>
+    <form id="updateForm" action="/buyandsell/update-buy-sells/:customerId" method="PUT">
+        <label for="customerId">Customer ID:</label>
+        <input type="number" name="customerId" id="customerId" placeholder="Enter customer ID" required>
+
+        <label for="earningPlatforms">Earning Platforms:</label>
+        <select name="EarniningPlatfroms" id="earningPlatforms" required>
+            <option value="Gaming">Gaming</option>
+            <option value="TechI">TechI</option>
+            <option value="themes&plugin">themes&plugin</option>
+            <option value="otheraccouts">otheraccouts</option>
+            <option value="Google&Blog">Google&Blog</option>
+        </select>
+
+        <label for="serialNumber">Video Title</label>
+        <input type="text" name="SerialNo[title]" id="serialNumber" placeholder="Enter Title" required>
+
+        <label for="accountName">Account Name:</label>
+        <input type="text" name="SerialNo[AccName]" id="accountName" placeholder="Enter account name" required>
+
+        <label for="accountDescription">Account Description:</label>
+        <textarea name="SerialNo[AccountDesccrption]" id="accountDescription" rows="3"
+            placeholder="Enter account description"></textarea>
+
+        <label for="accountUrl">Account URL:</label>
+        <input type="url" name="SerialNo[AccountUrl]" id="accountUrl" placeholder="Enter account URL" required>
+
+        <label for="accountAge">Account Age:</label>
+        <input type="text" name="SerialNo[Account_Age]" id="accountAge" placeholder="Enter account age">
+
+        <button type="submit">Update Buy_Sell Record</button>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+        $('#updateForm').submit(function(e) {
+            e.preventDefault(); // Prevent default form submission
+
+            const customerId = $('#customerId').val();
+            // Perform any client-side validation here before sending the request
+
+            // Create an object with form field values
+            const formData = {
+                customerId: customerId,
+                EarniningPlatfroms: $('#earningPlatforms').val(),
+                SerialNo: {
+                    title: $('#serialNumber').val(), // Include 'SerialNo.title' field
+                    AccName: $('#accountName').val(),
+                    AccountDesccrption: $('#accountDescription').val(),
+                    AccountUrl: $('#accountUrl').val(),
+                    Account_Age: $('#accountAge').val()
+                }
+            };
+
+            // Send AJAX request to update the data
+            $.ajax({
+                type: 'PUT',
+                url: `/buyandsell/update-buy-sells/${customerId}`,
+                contentType: 'application/json',
+                data: JSON.stringify(formData), // Send data as JSON
+                success: function(response) {
+                    // Handle successful update response
+                    console.log(response); // Log the response or perform any other action
+                },
+                error: function(xhr, status, error) {
+                    // Handle error response
+                    console.error(error); // Log the error or perform error handling
+                }
+            });
+        });
+    });
+    </script>
+</body>
+
+</html>
