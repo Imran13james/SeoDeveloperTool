@@ -8,9 +8,6 @@ function CreateSocialsellData(req, res) {
 
   res.render('SocialSelladd');
 }
-//  DeleteSocialsell,
-// for front Use Only in next js Ahmed works
-//also work on it and make sure for working in the backend
 router.get('/get-social-sells', GetSocialsell);
 //for updating 
 // checked working or not // filhal kaam nahi kr rha hai 

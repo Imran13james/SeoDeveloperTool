@@ -35,14 +35,11 @@ const showVideos = async (req, res) => {
             title,
             url,
             description,
-            videoId: socialLink.videoId // Assuming you want to include videoId in the response
-            // Include other fields from the schema as needed
+            videoId: socialLink.videoId 
           }
         });
       });
-  
-      // Responding by rendering the EJS template with the data
-      res.render("GetAllVideos", { videos: allVideos });
+        res.render("GetAllVideos", { videos: allVideos });
     } catch (error) {
       console.error('Error fetching social media panel data:', error);
       res.status(500).json({ origin: 'Internal Server Error origin', error: error.message });
@@ -73,13 +70,13 @@ const showVideo = async (req, res) => {
     }
 };const updateVideoByID = async (req, res) => {
   try {
-    const videoId = req.params.videoId; // Assuming the parameter name is "videoId"
+    const videoId = req.params.videoId; 
     const updatedFields = req.body;
 
     console.log('Video ID:', videoId);
     console.log('Updated Fields:', updatedFields);
 
-    const video = await SocialLinks.findOne({ videoId }); // Assuming "videoId" is a field in your schema
+    const video = await SocialLinks.findOne({ videoId });
 
     if (!video) {
       return res.status(404).json({ message: 'Video not found' });
@@ -112,7 +109,6 @@ const addVideo = async (req, res) => {
   try {
     const { socialMedia, videoTitle, videoUrl, videoDescription, videoId } = req.body;
 
-    // Check if any URL fields are empty
     if (!videoUrl || !videoTitle) {
       return res.status(400).json({ message: 'Video URL and title are required' });
     }

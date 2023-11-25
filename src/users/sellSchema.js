@@ -15,7 +15,7 @@ const userSchema = new Schema({
   accountAge: {
     type: Number,
     required: [true, "account age is required"],
-    min: 0, //if your getting age you should need to enter the age must
+    min: 0, 
   },
   accountUrl: {
     type: String,
@@ -46,8 +46,8 @@ const userSchema = new Schema({
   contactNumber: {
     type: Number,
     required: [true, "contact number is required"],
-     min: 11, //  min instead of minLength good practsie
-    max: 20, // Use max instead of maxLength for numbers
+     min: 11, 
+    max: 20, 
   },
   telegramUsername: {
     type: String,

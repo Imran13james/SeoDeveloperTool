@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const socialPanelSchema = new mongoose.Schema({
   videoId: {
-    type: String, // Changed type to String
+    type: String,
     unique: true,
     required: true,
   },
