@@ -37,7 +37,7 @@ const GetSocialsell = async (req, res) => {
 
         if (buySellRecords.length === 0) {
             res.status(404).json({ message: 'No Buy Acc records found' });
-            return; // Early return to prevent further processing
+            return; 
         }
 
         res.json(buySellRecords);
@@ -46,39 +46,36 @@ const GetSocialsell = async (req, res) => {
     }
 };
 const UpdateSocialsell = async (req, res) => {
-    const customerId = req.params.customerId; // Access customerId from params
-    const updateData = req.body; // Contains the fields to be updated
-
-    // Validate required fields
-    if (!updateData || !Object.keys(updateData).length) {
-        res.status(400).json({ message: 'Missing update data' });
-        return; // Early return to prevent further processing
-    }
-
     try {
-        // Find the record to be updated based on customerId
-        const buySellRecord = await SocialSell.findOne({ customerId });
-
-        if (!buySellRecord) {
-            res.status(404).json({ message: 'Buy Acc record not found for the customer ID' });
-            return; // Early return to prevent further processing
-        }
-
-        // Update the record with the provided data
-        Object.assign(buySellRecord, updateData);
-
-        // Save the updated record
-        await buySellRecord.save();
-
-        res.status(200).json({ message: 'Buy Acc record updated successfully', updatedRecord: buySellRecord }); // Send updated record in response
+      const customerId = req.params.customerId; 
+  
+      const socialSell = await SocialSell.findOne({ customerId });
+  
+      if (!socialSell) {
+        return res.status(404).json({ message: 'SocialSell not found' });
+      }
+  
+      if (req.body.EarniningPlatfroms) {
+        socialSell.EarniningPlatfroms = req.body.EarniningPlatfroms;
+      }
+  
+      if (req.body.SerialNo) {
+        socialSell.SerialNo = req.body.SerialNo;
+      }
+  
+      const updatedSocialSell = await socialSell.save();
+  
+      res.json(updatedSocialSell);
     } catch (error) {
-        res.status(500).json({ message: 'Error updating Buy_Sell record', error });
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
     }
-};
+  };
+  
+  
 const DeleteSocialsell = async (req, res) => {
-    const customerId = req.params.customerId; // Access customerId from params
+    const customerId = req.params.customerId; 
 
-    // Find the record to be deleted based on customerId
     try {
         const buySellRecord = await SocialSell.findOneAndDelete({ customerId });
 
