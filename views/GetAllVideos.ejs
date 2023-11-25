@@ -1,57 +1,104 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>All Videos</title>
   <style>
-    /* Modify the CSS as needed */
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      margin: 20px;
+    .box-container {
+      display: block;
+      flex-wrap: wrap;
+      justify-content: space-between; 
+      gap: 20px; 
     }
-    h1 {
-      color: #333;
+  
+    
+    .custom-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: rgb(106, 177, 153);
+      justify-content: center;
+      width: calc(33.33% - 20px); 
+      height: 150px;
+      border: 2px solid rgb(223, 201, 167);
+      border-radius: 24px;
+      padding: 20px;
+      margin-bottom: 20px; 
+      transition: transform 0.3s ease-in-out; }
+  
+    .custom-box-text {
+      font-size: 18px;
+      font-weight: 600;
+  
+      text-align: center;
+      width: 100%;
     }
-    ul {
-      list-style: none;
-      padding: 0;
+  
+    
+    .custom-box:hover {
+      transform: scale(1.05); 
+      box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.75); }
+  
+    
+    @media screen and (max-width: 768px) {
+      .box-container {
+        justify-content: center; }
+  
+      .custom-box {
+        width: calc(50% - 20px); 
+      }
     }
-    li {
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      padding: 10px;
+  
+    @media screen and (max-width: 480px) {
+      .custom-box {
+        width: calc(100% - 20px); 
+      }
     }
-    .video-url {
-      font-style: italic;
-      color: #666;
-    }
-    a {
-      text-decoration: none;
-      color: #007bff;
-      font-weight: bold;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
+  
   </style>
+  
 </head>
+
 <body>
   <h1>Videos List</h1>
-  <% if (videos.length > 0) { %>
+
+  <div class="custom-box">
+    <p class="custom-box-text">Tell me what's on your mind, or pick a suggestion.</p>
+  </div>
+  <div class="box-container"></div>
+  <% if (videos.length> 0) { %>
     <ul>
-      <% videos.forEach(video => { %>
-        <li>
-          <strong>Social Media:</strong> <%= video.socialMedia %><br>
-          <strong>Title:</strong> <%= video.video.title %><br>
-          <strong>Description:</strong> <%= video.video.description %><br>
-          <strong>URL:</strong>
-          <span class="video-url"><%= video.video.url %></span><br>
-          <a href="<%= video.video.url %>" target="_blank">Watch video</a>
+      <% videos.forEach(video=> { %>
+        <li class="dark-video-box custom-box"> <!-- Added 'custom-box' class -->
+          <div class="custom-box-text"> <!-- Added 'custom-box-text' class -->
+            <strong>Social Media:</strong>
+            <%= video.socialMedia %><br>
+              <strong>Title:</strong>
+              <span class="dark-video-text">
+                <%= video.video.title %>
+              </span><br>
+              <strong>Description:</strong>
+              <span class="dark-video-text">
+                <%= video.video.description %>
+              </span><br>
+              <strong>URL:</strong>
+              <span class="dark-video-text">
+                <%= video.video.url %>
+              </span><br>
+              <a href="<%= video.video.url %>" target="_blank">Watch video</a>
+              <strong>Video ID:</strong>
+              <%= video.video.videoId %><br>
+          </div>
         </li>
-      <% }); %>
+        <% }); %>
     </ul>
-  <% } else { %>
-    <p>No videos found.</p>
-  <% } %>
+    <% } else { %>
+      <p>No videos found.</p>
+      <% } %>
+
+
+
+
 </body>
+
 </html>

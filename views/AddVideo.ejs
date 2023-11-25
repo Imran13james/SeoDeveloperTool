@@ -95,10 +95,14 @@
 <body>
 
 <h2>Add Video</h2>
-
 <form method="POST" action="/social/social-links/addVideo/videos">
   <div>
-    <select name="socialMedia" id="socialMedia">
+    <label for="videoId">Video ID:</label>
+    <input type="number" name="videoId" id="videoId" required>
+  </div>
+  <div>
+    <label for="socialMedia">Select Social Media:</label>
+    <select name="socialMedia" id="socialMedia" required>
       <option value="Youtube">Youtube</option>
       <option value="Facebook">Facebook</option>
       <option value="Instagram">Instagram</option>
@@ -116,9 +120,10 @@
   </div>
   <div>
     <label for="videoDescription">Video Description:</label>
-    <textarea name="videoDescription" id="videoDescription"  required></textarea>
+    <textarea name="videoDescription" id="videoDescription" required></textarea>
   </div>
   <button type="submit">Add Video</button>
 </form>
+
 </body>
 </html>

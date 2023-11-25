@@ -15,31 +15,41 @@ const showVideos = async (req, res) => {
       res.status(500).send('Internal Server Error');
     }
   };
-  
-
-const AdminVideo = async (req, res) => {
+  const AdminVideo = async (req, res) => {
     try {
-        const socialLinks = await SocialLinks.find();
-    
-        if (!socialLinks || !socialLinks.length) {
-          return res.status(404).json({ message: 'Social media panel data not found' });
-        }
-    
-        let allVideos = [];
-    
-        socialLinks.forEach(socialMedia => {
-          allVideos.push({
-            socialMedia: socialMedia.socialMedia,
-            video: socialMedia.video
-          });
-        });
-    
-        res.render('GetAllVideos', { videos: allVideos });
-      } catch (error) {
-        console.error('Error fetching social media panel data:', error);
-        res.status(500).send({ origin: 'Internal Server Error origin', error: error.message });
+      const socialLinks = await SocialLinks.find();
+  
+      if (!socialLinks || socialLinks.length === 0) {
+        return res.status(404).json({ message: 'Social media panel data not found' });
       }
-    }   
+  
+      let allVideos = [];
+  
+      socialLinks.forEach(socialLink => {
+        const { socialMedia, video } = socialLink;
+        const { title, url, description } = video;
+  
+        allVideos.push({
+          socialMedia,
+          video: {
+            title,
+            url,
+            description,
+            videoId: socialLink.videoId // Assuming you want to include videoId in the response
+            // Include other fields from the schema as needed
+          }
+        });
+      });
+  
+      // Responding by rendering the EJS template with the data
+      res.render("GetAllVideos", { videos: allVideos });
+    } catch (error) {
+      console.error('Error fetching social media panel data:', error);
+      res.status(500).json({ origin: 'Internal Server Error origin', error: error.message });
+    }
+  };
+  
+     
 const showVideo = async (req, res) => {
     try {
         const socialLinks = await SocialLinks.find();
@@ -63,53 +73,57 @@ const showVideo = async (req, res) => {
     }
 };const updateVideoByID = async (req, res) => {
   try {
-      const videoId = req.params.id;
-      const updatedFields = req.body;
+    const videoId = req.params.videoId; // Assuming the parameter name is "videoId"
+    const updatedFields = req.body;
 
-      console.log('Video ID:', videoId);
-      console.log('Updated Fields:', updatedFields);
+    console.log('Video ID:', videoId);
+    console.log('Updated Fields:', updatedFields);
 
-      const video = await SocialLinks.findById(videoId);
+    const video = await SocialLinks.findOne({ videoId }); // Assuming "videoId" is a field in your schema
 
-      if (!video) {
-          return res.status(404).json({ message: 'Video not found' });
-      }
+    if (!video) {
+      return res.status(404).json({ message: 'Video not found' });
+    }
 
-      if (updatedFields.socialMedia !== undefined) {
-          video.socialMedia = updatedFields.socialMedia;
-      }
-      if (updatedFields.videoTitle !== undefined) {
-          video.video.title = updatedFields.videoTitle;
-      }
-      if (updatedFields.videoUrl !== undefined) {
-          video.video.url = updatedFields.videoUrl;
-      }
-      if (updatedFields.videoDescription !== undefined) {
-          video.video.description = updatedFields.videoDescription;
-      }
+    if (updatedFields.socialMedia !== undefined) {
+      video.socialMedia = updatedFields.socialMedia;
+    }
+    if (updatedFields.title !== undefined) {
+      video.video.title = updatedFields.title;
+    }
+    if (updatedFields.url !== undefined) {
+      video.video.url = updatedFields.url;
+    }
+    if (updatedFields.description !== undefined) {
+      video.video.description = updatedFields.description;
+    }
 
-      const updatedVideo = await video.save();
+    const updatedVideo = await video.save();
 
-      console.log('Updated Video:', updatedVideo);
+    console.log('Updated Video:', updatedVideo);
 
-      res.status(200).json({ message: 'Video updated successfully', updatedVideo });
+    res.status(200).json({ message: 'Video updated successfully', updatedVideo });
   } catch (error) {
-      console.error('Error updating video:', error);
-      res.status(500).json({ message: 'Internal Server Error', error: error.message });
+    console.error('Error updating video:', error);
+    res.status(500).json({ message: 'Internal Server Error', error: error.message });
   }
 };
-
-
 const addVideo = async (req, res) => {
   try {
-    const { socialMedia, videoTitle, videoUrl, videoDescription } = req.body;
+    const { socialMedia, videoTitle, videoUrl, videoDescription, videoId } = req.body;
 
-    const existingVideos = await SocialLinks.findOne({ videoUrl });
-    if (existingVideos) {
+    // Check if any URL fields are empty
+    if (!videoUrl || !videoTitle) {
+      return res.status(400).json({ message: 'Video URL and title are required' });
+    }
+
+    const existingVideo = await SocialLinks.findOne({ 'video.url': videoUrl });
+    if (existingVideo) {
       return res.status(400).json({ message: 'Video with this link already exists' });
     }
 
     const newVideo = new SocialLinks({
+      videoId,
       socialMedia,
       video: {
         title: videoTitle,
@@ -124,29 +138,29 @@ const addVideo = async (req, res) => {
   } catch (error) {
     console.error('Error adding video:', error);
     if (error.code === 11000) { 
-      res.status(400).json({ message: 'Video with this link already exists' });
+      return res.status(400).json({ message: 'Video with this link already exists' });
     } else {
-      res.status(500).send('Internal Server Error');
+      return res.status(500).json({ message: 'Internal Server Error', error: error.message });
     }
   }
 };
-
-
 const deleteVideoByID = async (req, res) => {
-    try {
-      const videoId = req.params.id;
-      const deletedVideo = await SocialLinks.findByIdAndDelete(videoId);
-      if (!deletedVideo) {
-        return res.status(404).json({ message: 'Video not found' });
-      }
-      res.status(200).json({ message: 'Video successfully deleted', deletedVideo });
-    } catch (error) {
-      console.error('Error deleting video:', error);
-      res.status(500).json({ message: 'Internal Server Error', error: error.message });
+  try {
+    const { videoId } = req.params; // Assuming videoId is passed as a parameter
+    
+    const deletedVideo = await SocialLinks.findOneAndDelete({ videoId });
+    
+    if (!deletedVideo) {
+      return res.status(404).json({ message: 'Video not found' });
     }
-  };
-  
-  
+    
+    res.status(200).json({ message: 'Video successfully deleted', deletedVideo });
+  } catch (error) {
+    console.error('Error deleting video:', error);
+    res.status(500).json({ message: 'Internal Server Error', error: error.message });
+  }
+};
+
 module.exports = {
     deleteVideoByID,
     showVideos,

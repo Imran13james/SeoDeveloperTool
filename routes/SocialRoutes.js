@@ -11,14 +11,14 @@ const {
   AdminVideo,
   updateVideoByID,
 } = require('../src/users/SocialLinksControllers'); 
-router.delete('/social-links/deleteVideo/videos/:id', deleteVideoByID);
+router.delete('/social-links/deleteVideo/videos/:videoId', deleteVideoByID);
 router.get('/social-links/deleteVideo/videos', renderDeleteVideo); 
 router.post('/social-links/addVideo/videos', addVideo); 
 router.get('/show-videos', AdminVideo);
 router.get('/add-video', renderAddVideo); 
 // ahemd ya front ka route hai is ko fetch krna hai
 router.get('/social-links/videos', showVideo);
-router.put('/social-links/updateSocialLinks/videos/:id', updateVideoByID); 
+router.put('/social-links/updateSocialLinks/videos/:videoId', updateVideoByID); 
 router.get('/social-links/updateSocialLinks/videos', renderUpdateSocialLinks);
 router.get('/home',HomepageofSocialLinks)
 function renderDeleteVideo(req, res) {

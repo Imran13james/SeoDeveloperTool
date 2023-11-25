@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const socialPanelSchema = new mongoose.Schema({
+  videoId: {
+    type: String, // Changed type to String
+    unique: true,
+    required: true,
+  },
   socialMedia: {
     type: String,
     enum: ['Youtube', 'Facebook', 'Instagram', 'Twitter', 'TikTok'],
@@ -20,7 +25,6 @@ const socialPanelSchema = new mongoose.Schema({
       required: true,
     },
   },
-
 });
 
 const SocialLinks = mongoose.model('SocialLinks', socialPanelSchema);

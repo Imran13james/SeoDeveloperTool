@@ -46,8 +46,8 @@ const userSchema = new Schema({
   contactNumber: {
     type: Number,
     required: [true, "contact number is required"],
-    // min: 11, //  min instead of minLength good practsie
-    // max: 20, // Use max instead of maxLength for numbers
+     min: 11, //  min instead of minLength good practsie
+    max: 20, // Use max instead of maxLength for numbers
   },
   telegramUsername: {
     type: String,

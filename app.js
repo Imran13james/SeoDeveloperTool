@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const authrRouter = require('./routes/users.js');
 const methodOverride = require('method-override');
 const DatabaseOfMongo = process.env.MONGO_URI;
-const PORT = 4000;
+const PORT = 4056;
 // change the PORT name
 const ejs = require('ejs');
 const path = require('path');

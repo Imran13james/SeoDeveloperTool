@@ -94,36 +94,31 @@
 </head>
 <body>
 
-<h1>Delete Video</h1>
-<!-- <form action="/social/social-links/deleteVideo/videos/<%= videoId %>" method="post">
-  <label for="videoId">Enter Video ID to Delete:</label><br>
-  <input type="text" id="videoId" name="videoId"><br><br>
-  <input type="submit" value="Delete Video">
-</form> -->
   <form id="deleteForm">
     <label for="videoId">Enter Video ID to Delete Video:</label><br>
-    <input type="number" id="videoId" name="videoId"><br><br>
+    <input type="text" id="videoId" name="videoId"><br><br>
     <input type="submit" value="Delete Video">
   </form>
-</body>
-<script>
-  document.getElementById('deleteForm').addEventListener('submit', async function(event) {
-    event.preventDefault();
-    const videoId = document.getElementById('videoId').value;
-    
-    try {
-      const response = await fetch(`/social/social-links/deleteVideo/videos/${videoId}`, {
-        method: 'DELETE'
-      });
-
-      if (response.ok) {
-        console.log('Video deleted successfully');
-      } else {
-        console.error('Error deleting video');
+  <script>
+    document.getElementById('deleteForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+      const videoId = document.getElementById('videoId').value;
+  
+      try {
+        const response = await fetch(`/social/social-links/deleteVideo/videos/${videoId}`, {
+          method: 'DELETE'
+        });
+  
+        if (response.ok) {
+          console.log('Video deleted successfully');
+        } else {
+          console.error('Error deleting video');
+        }
+      } catch (error) {
+        console.error('Error deleting video:', error);
       }
-    } catch (error) {
-      console.error('Error deleting video:', error);
-    }
-  });
-</script>
-</html>
+    });
+  </script>
+  
+  </body>
+  </html>
