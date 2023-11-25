@@ -3,18 +3,15 @@ const SocialSell = require("../SocialSellModel");
 const CreateSocialsell = async (req, res) => {
     const { customerId, EarniningPlatfroms, SerialNo } = req.body;
 
-    // Validate required fields including customerId
     if (!customerId || !EarniningPlatfroms || !SerialNo.title || !SerialNo.AccName || !SerialNo.AccountUrl) {
         res.status(400).json({ message: 'Missing required fields' });
-        return; // Early return to prevent further processing
+        return; 
     }
-    // Check for existing serial number
     const existingBuySell = await SocialSell.findOne({ 'SerialNo.title': SerialNo.title });
     if (existingBuySell) {
         res.status(409).json({ message: 'Serial number already exists' });
-        return; // Early return to prevent further processing
+        return; 
     }
-    // Construct and save the new Buy_Sell record including customerId
     const newBuySell = new SocialSell({
         customerId,
         EarniningPlatfroms,

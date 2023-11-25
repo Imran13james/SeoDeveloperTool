@@ -175,8 +175,6 @@ exports.Login = async (req, res) => {
         message: "Account not found",
       });
     }
-
-    // 2. Throw error if account is not activated
     if (!user.active) {
       return res.status(400).json({
         error: true,

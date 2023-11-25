@@ -142,8 +142,7 @@ const addVideo = async (req, res) => {
 };
 const deleteVideoByID = async (req, res) => {
   try {
-    const { videoId } = req.params; // Assuming videoId is passed as a parameter
-    
+    const { videoId } = req.params; 
     const deletedVideo = await SocialLinks.findOneAndDelete({ videoId });
     
     if (!deletedVideo) {
