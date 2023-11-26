@@ -1,5 +1,10 @@
 const mongoose = require('mongoose');
 
+function validateDescriptionLength(description) {
+    const wordCount = description.trim().split(/\s+/).length;
+    return wordCount <= 20;
+}
+/// length should less done 20 words
 const buySellSchema = new mongoose.Schema({
     serialNo: {
         type: Number,
@@ -23,6 +28,7 @@ const buySellSchema = new mongoose.Schema({
         },
         accountDescription: {
             type: String,
+            validate: [validateDescriptionLength, 'Account description should be 20 words or less'],
         },
         accountUrl: {
             type: String,

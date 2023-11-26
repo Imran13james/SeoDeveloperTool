@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
-
+function validateDescriptionLength(description) {
+    const wordCount = description.trim().split(/\s+/).length;
+    return wordCount <= 20;
+}
 const socilapanelearning = new mongoose.Schema({
     serialNo: {
         type: Number,
@@ -7,7 +10,7 @@ const socilapanelearning = new mongoose.Schema({
     },
     earningPlatforms: {
         type: String,
-        enum:['Youtube', 'Facebook', 'Insatagram', 'Twitter', 'TikTok', 'Website', "Snapchat", "OtherAccounts", "Telegram", "LINKEDIN"],
+        enum: ['Youtube', 'Facebook', 'Insatagram', 'Twitter', 'TikTok', 'Website', "Snapchat", "OtherAccounts", "Telegram", "LINKEDIN"],
         required: true,
     },
     aboutThisAccount: {
@@ -23,6 +26,7 @@ const socilapanelearning = new mongoose.Schema({
         },
         accountDescription: {
             type: String,
+            validate: [validateDescriptionLength, 'Account description should be 20 words or less'],
         },
         accountUrl: {
             type: String,
@@ -30,7 +34,7 @@ const socilapanelearning = new mongoose.Schema({
         },
         accountAge: {
             type: String,
-            require:true,
+            require: true,
         }
     },
 });
