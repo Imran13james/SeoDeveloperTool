@@ -7,11 +7,11 @@ const showVideos = async (req, res) => {
       }
         const socialLinks = await SocialLinks.find({ videoId });
         if (!socialLinks || !socialLinks.length) {
-        return res.status(404).send('Social media panel data not found');
+        return res.status(404).send('Earning Media Panel Data Not Found');
       }
         res.status(200).json({ socialLinks });
     } catch (error) {
-      console.error('Error fetching social media panel data:', error);
+      console.error('Error Fetching Earning Media Panel Data:', error);
       res.status(500).send('Internal Server Error');
     }
   };
@@ -20,7 +20,7 @@ const showVideos = async (req, res) => {
       const socialLinks = await SocialLinks.find();
   
       if (!socialLinks || socialLinks.length === 0) {
-        return res.status(404).json({ message: 'Social media panel data not found' });
+        return res.status(404).json({ message: 'Earning Media Panel Data Not Found' });
       }
   
       let allVideos = [];
@@ -41,7 +41,7 @@ const showVideos = async (req, res) => {
       });
         res.render("GetAllVideos", { videos: allVideos });
     } catch (error) {
-      console.error('Error fetching social media panel data:', error);
+      console.error('Error Fetching Earning Media Panel Data:', error);
       res.status(500).json({ origin: 'Internal Server Error origin', error: error.message });
     }
   };
@@ -52,7 +52,7 @@ const showVideo = async (req, res) => {
         const socialLinks = await SocialLinks.find();
 
         if (!socialLinks || !socialLinks.length) {
-            return res.status(404).json({ message: 'Social media panel data not found' });
+            return res.status(404).json({ message: 'Earning Media Panel Data Not Found' });
         }
 
         let allVideos = [];
@@ -65,7 +65,7 @@ const showVideo = async (req, res) => {
         });
         res.status(200).json(allVideos);
     } catch (error) {
-        console.error('Error fetching social media panel data:', error);
+        console.error('Error Fetching Earning Media Panel Data:', error);
         res.status(500).send({ origin: 'Internal Server Error origin', error: error.message });
     }
 };const updateVideoByID = async (req, res) => {
@@ -99,7 +99,7 @@ const showVideo = async (req, res) => {
 
     console.log('Updated Video:', updatedVideo);
 
-    res.status(200).json({ message: 'Video updated successfully', updatedVideo });
+    res.status(200).json({ message: 'Video Updated Successfully', updatedVideo });
   } catch (error) {
     console.error('Error updating video:', error);
     res.status(500).json({ message: 'Internal Server Error', error: error.message });
@@ -130,7 +130,7 @@ const addVideo = async (req, res) => {
 
     const savedVideo = await newVideo.save();
 
-    res.status(200).json({ message: 'Video successfully added', id: savedVideo._id });
+    res.status(200).json({ message: 'Video Successfully Added', id: savedVideo._id });
   } catch (error) {
     console.error('Error adding video:', error);
     if (error.code === 11000) { 
@@ -149,7 +149,7 @@ const deleteVideoByID = async (req, res) => {
       return res.status(404).json({ message: 'Video not found' });
     }
     
-    res.status(200).json({ message: 'Video successfully deleted', deletedVideo });
+    res.status(200).json({ message: 'Video Successfully Seleted', deletedVideo });
   } catch (error) {
     console.error('Error deleting video:', error);
     res.status(500).json({ message: 'Internal Server Error', error: error.message });

@@ -113,7 +113,7 @@
     <label for="serialNo">Serial No:</label>
     <input type="number" name="serialNo" id="serialNo" placeholder="Enter Serial No" required>
 
-    <button type="submit">Delete Buy/Sell Record</button>
+    <button type="submit">Delete Buy account</button>
   </form>
 
 </body>
@@ -137,14 +137,15 @@
     })
         .then(data => {
           console.log(data);
-          alert("Your record has been entered");
+          alert("Are You Sure You Want Delete This Account");
           if (data.message) {
             alert(data.message);
+            this.reset()
           }
         })
         .catch((error) => {
           console.error('Error:', error);
-          alert('Cannot found in the Database chage serial number');
+          alert('Cannot Found In The Database Please Check This Serial Number');
         });
     });
   });

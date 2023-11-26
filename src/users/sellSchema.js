@@ -41,13 +41,12 @@ const userSchema = new Schema({
     type: String,
     required: [true, "email is required"],
     minLength: [10, "email should be greater than or equal to 10 characters"],
-    maxLength: [20, "email should be less than or equal to 20 characters"],
+    maxLength: [30, "email should be less than or equal to 20 characters"],
   },
   contactNumber: {
     type: Number,
     required: [true, "contact number is required"],
-     min: 11, 
-    max: 20, 
+     min: 0, 
   },
   telegramUsername: {
     type: String,
@@ -63,6 +62,6 @@ const userSchema = new Schema({
     default: Date.now,
   },
 });
-const SellModel = mongoose.model("Sell", userSchema);
+const SellModel = mongoose.model("SellAccountDb", userSchema);
 
 module.exports = SellModel;

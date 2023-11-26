@@ -97,14 +97,13 @@ button[type="submit"]:hover {
 }
 </style>
 <body>
-    <h1>Delete Social Record</h1>
-    <h1>Delete Buy Record</h1>
+    <h1>Delete Social account</h1>
 
     <form id="deleteForm" action="/socialsell/delete-social-sells/:serialNo" method="DELETE">
       <label for="serialNo">Serial No:</label>
       <input type="number" name="serialNo" id="serialNo" placeholder="Enter Serial No" required>
   
-      <button type="submit">Delete Buy_Sell Record</button>
+      <button type="submit">Delete Social account</button>
   </form>
     
 </body>
@@ -122,8 +121,9 @@ button[type="submit"]:hover {
           })
           .then(response => response.json()) 
           .then(data => {
-              alert("deleted succfully")
+            alert("Are You Sure You Want To Delete A Account");
               console.log("deleted succfully");
+              this.reset()
           })
           .catch(error => {
               console.error(error);

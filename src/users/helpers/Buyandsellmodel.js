@@ -12,35 +12,31 @@ const buySellSchema = new mongoose.Schema({
     },
     earningPlatforms: {
         type: String,
-        enum: ['Gaming', 'TechI', 'Themes&Plugins', 'OtherAccounts', 'Google&Blog'],
         required: true,
     },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+      },
     aboutThisAccount: {
-        title: {
-            type: String,
-        },
         accPrice: {
-            type: Number,
+            type: String,
             required: true,
         },
         accName: {
             type: String,
-        },
-        accountDescription: {
-            type: String,
-            validate: [validateDescriptionLength, 'Account description should be 20 words or less'],
         },
         accountUrl: {
             type: String,
             required: true,
         },
         accountAge: {
-            type: String,
+            type: Number,
             require:true,
-        }
+        },
     },
 });
 
-const BuyAndSell = mongoose.model('BuyAndSell', buySellSchema);
+const BuyAndSell = mongoose.model('BuyAccountDb', buySellSchema);
 
 module.exports = BuyAndSell;

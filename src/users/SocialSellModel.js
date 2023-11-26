@@ -10,35 +10,31 @@ const socilapanelearning = new mongoose.Schema({
     },
     earningPlatforms: {
         type: String,
-        enum: ['Youtube', 'Facebook', 'Insatagram', 'Twitter', 'TikTok', 'Website', "Snapchat", "OtherAccounts", "Telegram", "LINKEDIN"],
         required: true,
     },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+      },
     aboutThisAccount: {
-        title: {
-            type: String,
-        },
         accPrice: {
-            type: Number,
+            type: String,
             required: true,
         },
         accName: {
             type: String,
-        },
-        accountDescription: {
-            type: String,
-            validate: [validateDescriptionLength, 'Account description should be 20 words or less'],
         },
         accountUrl: {
             type: String,
             required: true,
         },
         accountAge: {
-            type: String,
+            type: Number,
             require: true,
-        }
+        },
     },
 });
 
-const SocialSell = mongoose.model('Socia_Sell_Buy', socilapanelearning);
+const SocialSell = mongoose.model('SocialAccountDb', socilapanelearning);
 
 module.exports = SocialSell;

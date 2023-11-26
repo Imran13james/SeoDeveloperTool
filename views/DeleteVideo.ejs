@@ -99,26 +99,36 @@
     <input type="text" id="videoId" name="videoId"><br><br>
     <input type="submit" value="Delete Video">
   </form>
-  <script>
-    document.getElementById('deleteForm').addEventListener('submit', async function(event) {
-      event.preventDefault();
-      const videoId = document.getElementById('videoId').value;
-  
-      try {
-        const response = await fetch(`/social/social-links/deleteVideo/videos/${videoId}`, {
-          method: 'DELETE'
-        });
-  
-        if (response.ok) {
-          console.log('Video deleted successfully');
-        } else {
-          console.error('Error deleting video');
+<script>
+  document.getElementById('deleteForm').addEventListener('submit', async function (event) {
+    event.preventDefault();
+    const videoId = document.getElementById('videoId').value;
+
+    // Show confirmation dialog
+    const isConfirmed = window.confirm("Are You Sure You Want Delete This Video ?");
+
+    if (isConfirmed) {
+        try {
+            const response = await fetch(`/social/social-links/deleteVideo/videos/${videoId}`, {
+                method: 'DELETE'
+            });
+
+            if (response.ok) {
+                console.log('Video Deleted Successfully');
+                // Refresh the page or perform other actions
+                window.location.reload();
+            } else {
+                console.error('Error Deleting Video');
+            }
+        } catch (error) {
+            console.error('Error Deleting Video:', error);
         }
-      } catch (error) {
-        console.error('Error deleting video:', error);
-      }
-    });
-  </script>
+    } else {
+        console.log('Deletion Canceled By The User');
+    }
+});
+</script>
+
   
   </body>
   </html>

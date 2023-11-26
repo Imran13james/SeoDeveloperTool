@@ -4,56 +4,47 @@
 <head>
   <title>All Videos</title>
   <style>
-    .box-container {
-      display: block;
-      flex-wrap: wrap;
-      justify-content: space-between; 
-      gap: 20px; 
+    h1{
+      text-align: center;
     }
-  
-    
+    .body{
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      flex-wrap: wrap;
+    }
     .custom-box {
       display: flex;
       flex-direction: column;
       align-items: center;
-      background-color: rgb(106, 177, 153);
+      margin-top: 25px;
+      /* background-color: ; */
+      box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
       justify-content: center;
-      width: calc(33.33% - 20px); 
-      height: 150px;
-      border: 2px solid rgb(223, 201, 167);
+      width: clamp(15rem , 100% , 20rem); 
+      border: 2px solid white;
+      height: 10rem;
       border-radius: 24px;
-      padding: 20px;
-      margin-bottom: 20px; 
-      transition: transform 0.3s ease-in-out; }
+      padding: 20px 10px;
+      /* margin-bottom: 20px;  */
+      color: black;
+      transition:  0.3s ease-in-out;
+      cursor: pointer;
+     }
   
     .custom-box-text {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 600;
-  
-      text-align: center;
-      width: 100%;
+      line-height: 2rem;
     }
   
-    
+    .dark-video-text{
+      color: red;
+    }
     .custom-box:hover {
-      transform: scale(1.05); 
-      box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.75); }
-  
-    
-    @media screen and (max-width: 768px) {
-      .box-container {
-        justify-content: center; }
-  
-      .custom-box {
-        width: calc(50% - 20px); 
-      }
-    }
-  
-    @media screen and (max-width: 480px) {
-      .custom-box {
-        width: calc(100% - 20px); 
-      }
-    }
+      transform: scale(1.01); 
+      box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.75);
+     }
   
   </style>
   
@@ -61,40 +52,40 @@
 
 <body>
   <h1>Videos List</h1>
-
-  <div class="custom-box">
-    <p class="custom-box-text">Tell me what's on your mind, or pick a suggestion.</p>
-  </div>
-  <div class="box-container"></div>
+<div class="body">
   <% if (videos.length> 0) { %>
-    <ul>
-      <% videos.forEach(video=> { %>
-        <li class="dark-video-box custom-box"> 
-          <div class="custom-box-text">
-            <strong>Social Media:</strong>
-            <%= video.socialMedia %><br>
-              <strong>Title:</strong>
-              <span class="dark-video-text">
-                <%= video.video.title %>
-              </span><br>
-              <strong>Description:</strong>
-              <span class="dark-video-text">
-                <%= video.video.description %>
-              </span><br>
-              <strong>URL:</strong>
-              <span class="dark-video-text">
-                <%= video.video.url %>
-              </span><br>
-              <a href="<%= video.video.url %>" target="_blank">Watch video</a>
-              <strong>Video ID:</strong>
-              <%= video.video.videoId %><br>
-          </div>
-        </li>
-        <% }); %>
-    </ul>
-    <% } else { %>
-      <p>No videos found.</p>
-      <% } %>
+    <% videos.forEach(video=> { %>
+      <div class=" custom-box"> 
+        <div class="custom-box-text">
+          <strong>Social Media:</strong>
+          <span class="dark-video-text">
+            <%= video.socialMedia %>
+          </span>
+     <br>
+            <strong>Title:</strong>
+            <span class="dark-video-text">
+              <%= video.video.title %>
+            </span><br>
+            <strong>Description:</strong>
+            <span class="dark-video-text">
+              <%= video.video.description %>
+            </span><br>
+            <strong>URL:</strong>
+            <span class="dark-video-text">
+              <%= video.video.url %>
+            </span><br>
+            <!-- <a href="<%= video.video.url %>" target="_blank">Watch video</a> -->
+            <strong>Video ID:</strong>
+            <span class="dark-video-text">
+              <%= video.video.videoId %>
+            </span>
+        </div>
+      </div>
+      <% }); %>
+  <% } else { %>
+    <p>No videos found.</p>
+    <% } %>
+</div>
 
 
 

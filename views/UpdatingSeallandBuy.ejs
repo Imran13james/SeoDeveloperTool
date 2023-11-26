@@ -23,12 +23,12 @@
       form {
       display: flex;
       flex-direction: column;
-      width: clamp(300px , 100% , 350px);
-      margin: 10px auto;
-      padding: 20px;
+      width: clamp(300px , 100% , 400px);
+      margin: 7rem auto;
+      padding: 20px;  
       border: 1px solid #ccc;
       border-radius: 5px;
-      line-height: 2rem;
+      line-height: 2.5rem;
       outline: none;
       transition: 0.3s ease-in-out;
       cursor: pointer;
@@ -102,34 +102,25 @@
     <input type="number" name="serialNo" id="serialNo" placeholder="Enter Serial No" required>
 
     <label for="earningPlatforms">Earning Platforms:</label>
-    <select name="earningPlatforms" id="earningPlatforms" required>
-        <option value="Gaming">Gaming</option>
-        <option value="TechI">TechI</option>
-        <option value="Themes&Plugins">Themes & Plugins</option>
-        <option value="OtherAccounts">Other Accounts</option>
-        <option value="Google&Blog">Google & Blog</option>
-    </select>
+    <input type="text" name="earningPlatforms" id="earningPlatforms" placeholder="Enter EarningPlatforms" required>
 
-    <label for="title">Title:</label>
-    <input type="text" name="aboutThisAccount[title]" id="title" placeholder="Enter Title" required>
+  
 
     <label for="accPrice">Account Price:</label>
-    <input type="number" name="aboutThisAccount[accPrice]" id="accPrice" placeholder="Enter Account Price" required>
+    <input type="text" name="aboutThisAccount[accPrice]" id="accPrice" placeholder="Enter Account Price" required>
 
     <label for="accName">Account Name:</label>
     <input type="text" name="aboutThisAccount[accName]" id="accName" placeholder="Enter Account Name" required>
 
-    <label for="accountDescription">Account Description:</label>
-    <textarea name="aboutThisAccount[accountDescription]" id="accountDescription" rows="3"
-        placeholder="Enter Account Description"></textarea>
+  
 
     <label for="accountUrl">Account URL:</label>
     <input type="url" name="aboutThisAccount[accountUrl]" id="accountUrl" placeholder="Enter Account URL" required>
 
     <label for="accountAge">Account Age:</label>
-    <input type="text" name="aboutThisAccount[accountAge]" id="accountAge" placeholder="Enter Account Age">
+    <input type="number" name="aboutThisAccount[accountAge]" id="accountAge" placeholder="Enter Account Age">
 
-    <button type="submit">Update Buy/Sell Record</button>
+    <button type="submit">Update Buy acc </button>
 </form>
 
 
@@ -139,10 +130,8 @@
   
       const serialNo = document.getElementById('serialNo').value;
       const earningPlatforms = document.getElementById('earningPlatforms').value;
-      const title = document.getElementById('title').value;
       const accPrice = document.getElementById('accPrice').value;
       const accName = document.getElementById('accName').value;
-      const accountDescription = document.getElementById('accountDescription').value;
       const accountUrl = document.getElementById('accountUrl').value;
       const accountAge = document.getElementById('accountAge').value;
   
@@ -150,10 +139,8 @@
           serialNo: serialNo,
           earningPlatforms: earningPlatforms,
           aboutThisAccount: {
-              title: title,
               accPrice: accPrice,
               accName: accName,
-              accountDescription: accountDescription,
               accountUrl: accountUrl,
               accountAge: accountAge,
           }
@@ -174,11 +161,20 @@
       })
       .then(data => {
 
-          alert('Buy/Sell record updated successfully');
+          alert('Buy account  updated successfully');
+          if (data.message) {
+    // Reset the form after confirmation
+    this.reset();
+
+    // Rest of your form submission logic
+    // ...
+} else {
+    console.log('User canceled the record creation');
+}
       })
       .catch((error) => {
           console.error('Error:', error);
-          alert('Error updating Buy/Sell record');
+          alert('Error updating Buy account record');
       });
   });
   </script>

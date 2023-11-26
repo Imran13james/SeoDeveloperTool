@@ -27,6 +27,6 @@ const socialPanelSchema = new mongoose.Schema({
   },
 });
 
-const SocialLinks = mongoose.model('SocialLinks', socialPanelSchema);
+const SocialLinks = mongoose.model('earning', socialPanelSchema);
 
 module.exports = SocialLinks;

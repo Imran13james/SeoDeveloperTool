@@ -127,13 +127,6 @@ form {
 </head>
 
 <body>
-  <div class="custom-box">
-  <h2 class="custom-box-text">Update Social Link</h2>
-  </div>
-  <div class="custom-box">
-    <p class="custom-box-text">Tell me what's on your mind, or pick a suggestion.</p>
-  </div>
-  
   <form id="updateForm">
     <label for="videoIdInput">Enter Video ID to Update:</label>
     <input type="number" id="videoIdInput" name="videoId" placeholder="Enter video ID">
@@ -160,39 +153,44 @@ form {
   </form>
   
   <script>
-    document.getElementById('updateForm').addEventListener('submit', async function(event) {
-      event.preventDefault();
-      const videoId = document.getElementById('videoIdInput').value;
-      const socialMedia = document.getElementById('socialMedia').value;
-      const videoTitle = document.getElementById('videoTitle').value;
-      const videoUrl = document.getElementById('videoUrl').value;
-      const videoDescription = document.getElementById('videoDescription').value;
-  
-      const updatedFields = {
-        socialMedia: socialMedia,
-        title: videoTitle,
-        url: videoUrl,
-        description: videoDescription
-      };
-  
-      try {
-        const response = await fetch(`/social/social-links/updateSocialLinks/videos/${videoId}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(updatedFields)
-        });
-  
-        if (response.ok) {
-          console.log('Video updated successfully');
-        } else {
-          console.error('Error updating video');
-        }
-      } catch (error) {
-        console.error('Error updating video:', error);
-      }
+  document.getElementById('updateForm').addEventListener('submit', async function (event) {
+  event.preventDefault();
+  const videoId = document.getElementById('videoIdInput').value;
+  const socialMedia = document.getElementById('socialMedia').value;
+  const videoTitle = document.getElementById('videoTitle').value;
+  const videoUrl = document.getElementById('videoUrl').value;
+  const videoDescription = document.getElementById('videoDescription').value;
+
+  const updatedFields = {
+    socialMedia: socialMedia,
+    title: videoTitle,
+    url: videoUrl,
+    description: videoDescription
+  };
+
+  try {
+    const response = await fetch(`/social/social-links/updateSocialLinks/videos/${videoId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updatedFields)
     });
+
+    if (response.ok) {
+      console.log('Video updated successfully');
+      window.alert('Video updated successfully'); // Show a dialog box
+      window.location.reload(); // Refresh the page
+    } else {
+      console.error('Error updating video');
+      window.alert('Error updating video'); // Show a dialog box for error
+    }
+  } catch (error) {
+    console.error('Error updating video:', error);
+    window.alert('Error updating video: ' + error.message); // Show a dialog box with the error message
+  }
+});
+
   </script>
 </body>  
 

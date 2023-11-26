@@ -39,6 +39,6 @@ const userSchema = new mongoose.Schema({
 //   next();
 // });
 
-const AdminUser = mongoose.model('AdminPanel', userSchema);
+const AdminUser = mongoose.model('AdminRegisterDb', userSchema);
 
 module.exports = AdminUser;

@@ -28,7 +28,7 @@ const userSchema = new Schema(
   }
 );
 
-const User = mongoose.model("JamesModel", userSchema);
+const User = mongoose.model("UsersRegister", userSchema);
 module.exports = User;
 
 module.exports.hashPassword = async (password) => {

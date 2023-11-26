@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const authrRouter = require('./routes/users.js');
 const methodOverride = require('method-override');
 const DatabaseOfMongo = process.env.MONGO_URI;
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 // change the PORT name
 const ejs = require('ejs');
 const path = require('path');
@@ -24,7 +24,7 @@ const socialsell = require("./routes/SocialSellRoutes.js");
 const connectWithRetry = () => {
   mongoose
     .connect(DatabaseOfMongo, {
-      dbName: "Ahmed_Developers",
+      dbName: "Seotollers",
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
