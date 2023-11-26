@@ -16,19 +16,17 @@ function welcomepage(req, res) {
 router.get('/get-buy-sells', getAllBuySell);
 //for updating 
 // checked working or not // filhal kaam nahi kr rha hai 
-router.put('/update-buy-sells/:customerId', updateBuySell);
+router.put('/update-buy-sells/:serialNo', updateBuySell);
 router.get('/update-buy-sells', UpdateBuySellData);
 function UpdateBuySellData(req, res) {
 
   res.render('UpdatingSeallandBuy');
 }
-// thhis is for deleting the user 
-router.delete('/delete-buy-sells/:customerId', deleteBuySell);
+
+router.delete('/delete-buy-sells/:serialNo', deleteBuySell);
 router.get('/delete-buy-sells', DeleteBuySellData);
 function DeleteBuySellData(req, res) {
 
   res.render('DeletesellandBuy');
 }
-
-
 module.exports = router;

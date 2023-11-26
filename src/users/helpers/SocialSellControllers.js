@@ -1,92 +1,92 @@
 const SocialSell = require("../SocialSellModel");
 
 const CreateSocialsell = async (req, res) => {
-    const { customerId, EarniningPlatfroms, SerialNo } = req.body;
+    const { serialNo, earningPlatforms, aboutThisAccount } = req.body;
 
-    if (!customerId || !EarniningPlatfroms || !SerialNo.title || !SerialNo.AccName || !SerialNo.AccountUrl) {
-        res.status(400).json({ message: 'Missing required fields' });
-        return; 
+    if (!serialNo || !earningPlatforms || !aboutThisAccount.title || !aboutThisAccount.accName || !aboutThisAccount.accountUrl) {
+        return res.status(400).json({ message: 'Missing required fields' });
     }
-    const existingBuySell = await SocialSell.findOne({ 'SerialNo.title': SerialNo.title });
-    if (existingBuySell) {
-        res.status(409).json({ message: 'Serial number already exists' });
-        return; 
-    }
-    const newBuySell = new SocialSell({
-        customerId,
-        EarniningPlatfroms,
-        SerialNo: {
-            title: SerialNo.title,
-            AccName: SerialNo.AccName,
-            AccountDesccrption: SerialNo.AccountDesccrption,
-            AccountUrl: SerialNo.AccountUrl,
-            Account_Age: SerialNo.Account_Age,
-        },
-    });
 
     try {
-        await newBuySell.save();
-        res.status(201).json({ message: 'Buy Acc record created successfully' });
+        const existingBuySell = await SocialSell.findOne({ 'serialNo': serialNo });
+        if (existingBuySell) {
+            return res.status(409).json({ message: 'Serial number already exists' });
+        }
+
+        const newBuySell = new SocialSell({
+            serialNo: serialNo,
+            earningPlatforms: earningPlatforms,
+            aboutThisAccount: {
+                title: aboutThisAccount.title,
+                accPrice: aboutThisAccount.accPrice,
+                accName: aboutThisAccount.accName,
+                accountDescription: aboutThisAccount.accountDescription,
+                accountUrl: aboutThisAccount.accountUrl,
+                accountAge: aboutThisAccount.accountAge,
+            },
+        });
+        const newRecord = await newBuySell.save();
+        res.status(201).json({ message: 'Buy_Sell record created successfully', newRecord: newRecord });
     } catch (error) {
-        res.status(500).json({ message: 'Error creating Buy_Sell record', error });
+        res.status(500).json({ message: 'Error creating Buy_Sell record', error: error.message });
     }
 };
 const GetSocialsell = async (req, res) => {
     try {
         const buySellRecords = await SocialSell.find();
 
-        if (buySellRecords.length === 0) {
-            res.status(404).json({ message: 'No Buy Acc records found' });
-            return; 
+        if (!buySellRecords || buySellRecords.length === 0) {
+            return res.status(404).json({ message: 'No Buy_Sell records found' });
         }
 
         res.json(buySellRecords);
     } catch (error) {
-        res.status(500).json({ message: 'Error retrieving Buy_Sell records', error });
+        res.status(500).json({ message: 'Error retrieving Buy_Sell records', error: error.message });
     }
 };
-const UpdateSocialsell = async (req, res) => {
-    try {
-      const customerId = req.params.customerId; 
-  
-      const socialSell = await SocialSell.findOne({ customerId });
-  
-      if (!socialSell) {
-        return res.status(404).json({ message: 'SocialSell not found' });
-      }
-  
-      if (req.body.EarniningPlatfroms) {
-        socialSell.EarniningPlatfroms = req.body.EarniningPlatfroms;
-      }
-  
-      if (req.body.SerialNo) {
-        socialSell.SerialNo = req.body.SerialNo;
-      }
-  
-      const updatedSocialSell = await socialSell.save();
-  
-      res.json(updatedSocialSell);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal server error' });
-    }
-  };
-  
-  
-const DeleteSocialsell = async (req, res) => {
-    const customerId = req.params.customerId; 
 
+
+const UpdateSocialsell = async (req, res) => {
+    const serialNo = req.params.serialNo;
+    const updateData = req.body;
+
+    if (!serialNo) {
+        return res.status(400).json({ message: 'Missing serial number' });
+    }
+
+    if (!updateData || Object.keys(updateData).length === 0) {
+        return res.status(400).json({ message: 'Missing update data' });
+    }
     try {
-        const buySellRecord = await SocialSell.findOneAndDelete({ customerId });
+        const buySellRecord = await SocialSell.findOne({ serialNo });
 
         if (!buySellRecord) {
-            res.status(404).json({ message: 'Buy Acc record not found for the customer ID' });
-            return; // Early return to prevent further processing
+            return res.status(404).json({ message: 'Buy_Sell record not found for the serial number' });
         }
 
-        res.status(200).json({ message: 'Buy Acc record deleted successfully' });
+        Object.assign(buySellRecord, updateData);
+        await buySellRecord.save();
+
+        res.status(200).json({ message: 'Buy_Sell record updated successfully', updatedRecord: buySellRecord });
     } catch (error) {
-        res.status(500).json({ message: 'Error deleting Buy Acc record', error });
+        res.status(500).json({ message: 'Error updating Buy_Sell record', error: error.message });
+    }
+};
+
+
+
+const DeleteSocialsell = async (req, res) => {
+    const serialNo = req.params.serialNo;
+    try {
+        const buySellRecord = await SocialSell.findOneAndDelete({ serialNo });
+
+        if (!buySellRecord) {
+            return res.status(404).json({ message: 'Buy_Sell record not found for the serial number' });
+        }
+
+        res.status(200).json({ message: 'Buy_Sell record deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting Buy_Sell record', error: error.message });
     }
 };
 

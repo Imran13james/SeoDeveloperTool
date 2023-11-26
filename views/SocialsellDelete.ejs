@@ -98,36 +98,37 @@ button[type="submit"]:hover {
 </style>
 <body>
     <h1>Delete Social Record</h1>
+    <h1>Delete Buy Record</h1>
 
-    <form id="deleteForm" action="/socialsell/delete-social-sells/:customerId" method="DELETE">
-        <label for="customerId">Customer ID:</label>
-        <input type="number" name="customerId" id="customerId" placeholder="Enter customer ID" required>
-
-        <button type="submit">Delete Buy_Sell Record</button>
-    </form>
+    <form id="deleteForm" action="/socialsell/delete-social-sells/:serialNo" method="DELETE">
+      <label for="serialNo">Serial No:</label>
+      <input type="number" name="serialNo" id="serialNo" placeholder="Enter Serial No" required>
+  
+      <button type="submit">Delete Buy_Sell Record</button>
+  </form>
+    
 </body>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('deleteForm');
-
-    form.addEventListener('submit', function(e) {
-        e.preventDefault(); // Prevent default form submission
-
-        const customerId = document.getElementById('customerId').value;
-        fetch(`/socialsell/delete-social-sells/${customerId}`, {
-            method: 'DELETE',
-        })
-        .then(response => response.json()) // Parse the JSON response
-        .then(data => {
-            // Handle successful delete response
-            console.log(data); // Log the response or perform any other action
-        })
-        .catch(error => {
-            // Handle error response
-            console.error(error); // Log the error or perform error handling
-        });
-    });
-});
-</script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('deleteForm');
+  
+      form.addEventListener('submit', function(e) {
+          e.preventDefault(); 
+  
+          const serialNo = document.getElementById('serialNo').value;
+          fetch(`/socialsell/delete-social-sells/${serialNo}`, {
+              method: 'DELETE',
+          })
+          .then(response => response.json()) 
+          .then(data => {
+              alert("deleted succfully")
+              console.log("deleted succfully");
+          })
+          .catch(error => {
+              console.error(error);
+          });
+      });
+  });
+  </script>
 </html>

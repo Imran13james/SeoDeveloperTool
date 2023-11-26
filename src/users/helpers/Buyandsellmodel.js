@@ -1,37 +1,40 @@
 const mongoose = require('mongoose');
 
-const buysell = new mongoose.Schema({
-    customerId: {
+const buySellSchema = new mongoose.Schema({
+    serialNo: {
         type: Number,
         required: true,
     },
-    EarniningPlatfroms: {
+    earningPlatforms: {
         type: String,
-        enum: ['Gaming', 'TechI', 'themes&plugin', 'otheraccouts', 'Google&Blog'],
+        enum: ['Gaming', 'TechI', 'Themes&Plugins', 'OtherAccounts', 'Google&Blog'],
         required: true,
     },
-    SerialNo: {
+    aboutThisAccount: {
         title: {
             type: String,
+        },
+        accPrice: {
+            type: Number,
             required: true,
         },
-        AccName: {
+        accName: {
+            type: String,
+        },
+        accountDescription: {
+            type: String,
+        },
+        accountUrl: {
             type: String,
             required: true,
         },
-        AccountDesccrption: {
+        accountAge: {
             type: String,
-        },
-        AccountUrl: {
-            type: String,
-            required: true,
-        },
-        Account_Age: {
-            type: String,
+            require:true,
         }
     },
 });
 
-const BuyANDSELL = mongoose.model('Buy_Sell', buysell);
+const BuyAndSell = mongoose.model('BuyAndSell', buySellSchema);
 
-module.exports = BuyANDSELL;
+module.exports = BuyAndSell;

@@ -1,33 +1,36 @@
 const mongoose = require('mongoose');
 
 const socilapanelearning = new mongoose.Schema({
-    customerId: {
+    serialNo: {
         type: Number,
         required: true,
     },
-    EarniningPlatfroms: {
+    earningPlatforms: {
         type: String,
-        enum: ['Youtube', 'Facebook', 'Insatagram', 'Twitter', 'Tick&Tok', 'Website', "Snapchat", "OtherAccounts", "Telegram", "Snapchat"],
+        enum:['Youtube', 'Facebook', 'Insatagram', 'Twitter', 'TikTok', 'Website', "Snapchat", "OtherAccounts", "Telegram", "LINKEDIN"],
         required: true,
     },
-    SerialNo: {
+    aboutThisAccount: {
         title: {
             type: String,
+        },
+        accPrice: {
+            type: Number,
             required: true,
         },
-        AccName: {
+        accName: {
+            type: String,
+        },
+        accountDescription: {
+            type: String,
+        },
+        accountUrl: {
             type: String,
             required: true,
         },
-        AccountDesccrption: {
+        accountAge: {
             type: String,
-        },
-        AccountUrl: {
-            type: String,
-            required: true,
-        },
-        Account_Age: {
-            type: String,
+            require:true,
         }
     },
 });

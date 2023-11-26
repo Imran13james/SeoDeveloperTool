@@ -2,28 +2,29 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Buy_Sell Record</title>
-    <style>
-      body{
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-        h1{
-        text-align: center;
-        font-size: 2rem;
-        text-transform: capitalize;
-        /* margin-top: 5rem; */
-        color: black;
-        letter-spacing: 0.2rem;
-        font-weight: 600;
-      }
-      form {
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Buy_Sell Record</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      text-transform: capitalize;
+      /* margin-top: 5rem; */
+      color: black;
+      letter-spacing: 0.2rem;
+      font-weight: 600;
+    }
+
+    form {
       display: flex;
       flex-direction: column;
-      width: clamp(300px , 100% , 350px);
+      width: clamp(300px, 100%, 350px);
       margin: 10px auto;
       padding: 20px;
       border: 1px solid #ccc;
@@ -33,20 +34,24 @@
       transition: 0.3s ease-in-out;
       cursor: pointer;
     }
+
     form:hover {
-      box-shadow: rgba(238, 233, 233, 0.19) 0px 10px ,  rgba(219, 212, 212, 0.498) 0px 6px 6px;
+      box-shadow: rgba(238, 233, 233, 0.19) 0px 10px, rgba(219, 212, 212, 0.498) 0px 6px 6px;
     }
-    form select{
+
+    form select {
       padding: 0.5rem 1rem;
       border-radius: 0.2rem;
       cursor: pointer;
       font-size: 0.8rem;
       font-weight: 700;
     }
-    textarea , select:hover{
+
+    textarea,
+    select:hover {
       border-color: black;
     }
-    
+
     label {
       display: block;
       font-size: 1rem;
@@ -55,23 +60,26 @@
       margin-bottom: 5px;
       color: black;
     }
-    select , textarea{
+
+    select,
+    textarea {
       border: 2px solid rgba(0, 0, 0, 0.324);
       transition: 0.3s ease-in-out;
     }
-    textarea{
+
+    textarea {
       height: 8rem;
       width: 100%;
       resize: none;
     }
-    
+
     input[type="text"] {
       width: 100%;
       padding: 5px;
       border: 1px solid #ccc;
       border-radius: 3px;
     }
-    
+
     button[type="submit"] {
       margin-top: 10px;
       padding: 10px;
@@ -84,94 +92,109 @@
       font-size: 1rem;
       font-weight: 700;
     }
-   
-    
+
+
     input[type="text"]:focus {
       outline: none;
-      border: 2px solid #007bff ;
+      border: 2px solid #007bff;
     }
-    
+
     button[type="submit"]:hover {
       background-color: #0069d9;
     }
-    </style>
+  </style>
 </head>
 
 <body>
   <h1>Update Scail Acc</h1>
-    <form id="updateForm" action="/socialsell/update-social-sells/:customerId" method="PUT">
-        <label for="customerId">Customer ID:</label>
-        <input type="number" name="customerId" id="customerId" placeholder="Enter customer ID" required>
+  <form id="updateForm" method="PUT">
+    <label for="serialNo">Serial No:</label>
+    <input type="number" name="serialNo" id="serialNo" placeholder="Enter Serial No" required>
+    <label for="earningPlatforms">Earning Platforms:</label>
+    <select name="earningPlatforms" id="earningPlatforms" required>
+      <option value="YouTube">YouTube</option>
+      <option value="Facebook">Facebook</option>
+      <option value="Instagram">Instagram</option>
+      <option value="Twitter">Twitter</option>
+      <option value="TikTok">TikTok</option>
+      <option value="Website">Website</option>
+      <option value="Snapchat">Snapchat</option>
+      <option value="OtherAccounts">OtherAccounts</option>
+      <option value="Telegram">Telegram</option>
+      <option value="LINKEDIN">LINKEDIN</option>
+    </select>
+    <label for="title">Title:</label>
+    <input type="text" name="aboutThisAccount[title]" id="title" placeholder="Enter Title" required>
 
-        <label for="earningPlatforms">Earning Platforms:</label>
-        <select name="EarniningPlatfroms" id="earningPlatforms" required>
-            <option value="YouTube">YouTube</option>
-        <option value="Facebook">Facebook</option>
-        <option value="Instagram">Instagram</option>
-        <option value="Twitter">Twitter</option>
-        <option value="TikTok">TikTok</option>
-        <option value="Website">Website</option>
-        <option value="Snapchat">Snapchat</option>
-        <option value="OtherAccounts">OtherAccounts</option>
-        <option value="Telegram">Telegram</option>
-        </select>
+    <label for="accPrice">Account Price:</label>
+    <input type="number" name="aboutThisAccount[accPrice]" id="accPrice" placeholder="Enter Account Price" required>
 
-        <label for="serialNumber">Video Title:</label>
-        <input type="text" name="SerialNo[title]" id="serialNumber" placeholder="Enter Video Title" required>
+    <label for="accName">Account Name:</label>
+    <input type="text" name="aboutThisAccount[accName]" id="accName" placeholder="Enter Account Name" required>
 
-        <label for="accountName">Account Name:</label>
-        <input type="text" name="SerialNo[AccName]" id="accountName" placeholder="Enter account name" required>
+    <label for="accountDescription">Account Description:</label>
+    <textarea name="aboutThisAccount[accountDescription]" id="accountDescription" rows="3"
+      placeholder="Enter Account Description"></textarea>
 
-        <label for="accountDescription">Account Description:</label>
-        <textarea name="SerialNo[AccountDesccrption]" id="accountDescription" rows="3"
-            placeholder="Enter account description"></textarea>
+    <label for="accountUrl">Account URL:</label>
+    <input type="url" name="aboutThisAccount[accountUrl]" id="accountUrl" placeholder="Enter Account URL" required>
 
-        <label for="accountUrl">Account URL:</label>
-        <input type="url" name="SerialNo[AccountUrl]" id="accountUrl" placeholder="Enter account URL" required>
+    <label for="accountAge">Account Age:</label>
+    <input type="text" name="aboutThisAccount[accountAge]" id="accountAge" placeholder="Enter Account Age">
 
-        <label for="accountAge">Account Age:</label>
-        <input type="text" name="SerialNo[Account_Age]" id="accountAge" placeholder="Enter account age">
+    <button type="submit">Update Social/Account Record</button>
+  </form>
 
-        <button type="submit">Update Socail Acc </button>
-    </form>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script>
-    $(document).ready(function() {
-        $('#updateForm').submit(function(e) {
-            e.preventDefault(); // Prevent default form submission
-
-            const customerId = $('#customerId').val();
-            // Perform any client-side validation here before sending the request
-
-            // Create an object with form field values
-            const formData = {
-                customerId: customerId,
-                EarniningPlatfroms: $('#earningPlatforms').val(),
-                SerialNo: {
-                    title: $('#serialNumber').val(),
-                    AccName: $('#accountName').val(),
-                    AccountDesccrption: $('#accountDescription').val(),
-                    AccountUrl: $('#accountUrl').val(),
-                    Account_Age: $('#accountAge').val()
-                }
-            };
-            $.ajax({
-                type: 'PUT',
-                url: `/socialsell/update-social-sells/${customerId}`,
-                contentType: 'application/json',
-                data: JSON.stringify(formData),
-                success: function(response) {
-                    console.log(response); },
-                error: function(xhr, status, error) {
-                 
-                    console.error(error); 
-                }
-            });
-        });
-    });
-    </script>
 </body>
 
 </html>
+
+<script>
+  document.getElementById('updateForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const serialNo = document.getElementById('serialNo').value;
+    const earningPlatforms = document.getElementById('earningPlatforms').value;
+    const title = document.getElementById('title').value;
+    const accPrice = document.getElementById('accPrice').value;
+    const accName = document.getElementById('accName').value;
+    const accountDescription = document.getElementById('accountDescription').value;
+    const accountUrl = document.getElementById('accountUrl').value;
+    const accountAge = document.getElementById('accountAge').value;
+
+    const data = {
+      serialNo: serialNo,
+      earningPlatforms: earningPlatforms,
+      aboutThisAccount: {
+        title: title,
+        accPrice: accPrice,
+        accName: accName,
+        accountDescription: accountDescription,
+        accountUrl: accountUrl,
+        accountAge: accountAge,
+      }
+    };
+
+    fetch(`/socialsell/update-social-sells/${serialNo}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+
+        alert('Buy/Sell record updated successfully');
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert('Error updating Buy/Sell record');
+      });
+  });
+</script>

@@ -10,8 +10,8 @@ function CreateSocialsellData(req, res) {
 }
 router.get('/get-social-sells', GetSocialsell);
 //for updating 
-// checked working or not // filhal kaam nahi kr rha hai 
-router.put('/update-social-sells/:customerId', UpdateSocialsell);
+// //checked working or not // filhal kaam nahi kr rha hai 
+router.put('/update-social-sells/:serialNo', UpdateSocialsell);
 router.get('/update-social-sells', UpdateUpdateSocialsellData);
 function UpdateUpdateSocialsellData(req, res) {
 
@@ -22,8 +22,8 @@ function welcomeSocial(req, res) {
 
   res.render('WelcomeSocial');
 }
-// thhis is for deleting the user 
-router.delete('/delete-social-sells/:customerId', DeleteSocialsell);
+// thhis is for delting users .vide
+router.delete('/delete-social-sells/:serialNo', DeleteSocialsell);
 router.get('/delete-social-sells', DeleteDeleteSocialsell);
 function DeleteDeleteSocialsell(req, res) {
 
