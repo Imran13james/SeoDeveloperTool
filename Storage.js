@@ -2,7 +2,6 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// Create a function to ensure the uploads directory exists
 const createUploadsFolder = () => {
   const uploadPath = path.join(__dirname, 'uploads');
   if (!fs.existsSync(uploadPath)) {
@@ -10,7 +9,6 @@ const createUploadsFolder = () => {
   }
 };
 
-// Call the function to ensure the uploads directory exists
 createUploadsFolder();
 
 const storage = multer.diskStorage({
