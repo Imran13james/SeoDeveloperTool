@@ -5,6 +5,9 @@ const app = express();
 const mongoose = require("mongoose");
 const authrRouter = require('./routes/users.js');
 const methodOverride = require('method-override');
+const multer = require('multer');
+// const storage = require('../../Storage').upload;
+const storage = require('./Storage.js')
 const DatabaseOfMongo = process.env.MONGO_URI;
 const PORT = process.env.PORT || 4000;
 // change the PORT name
@@ -21,6 +24,8 @@ const router = require("./routes/AdminRoutes.js");
 const socilarouter = require("./routes/SocialRoutes.js");
 const Buyandsell = require("./routes/BuyandsellRoutes.js");
 const socialsell = require("./routes/SocialSellRoutes.js");
+const BuyAccountsRoutes = require("./routes/BuyAccountsRoutes.js");
+
 const connectWithRetry = () => {
   mongoose
     .connect(DatabaseOfMongo, {
@@ -48,6 +53,7 @@ const connectWithRetry = () => {
       app.use('/social', socilarouter)
       app.use("/buyandsell", Buyandsell)
       app.use('/socialsell', socialsell)
+      app.use('/BuyAccounts',BuyAccountsRoutes)
       const server = app.listen(PORT, () => {
         console.log("Server started listening on PORT: " + PORT);
       });

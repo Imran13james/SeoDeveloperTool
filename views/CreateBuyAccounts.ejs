@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create New Details</title>
+</head>
+<body>
+  <h1>Create New Details</h1>
+  <form id="createDetailsForm">
+    <label for="accountFullname">Account Fullname:</label>
+    <input type="text" id="accountFullname" name="accountFullname" required placeholder="Enter the account fullname">
+    <br>
+
+    <label for="DescFull">Description:</label>
+    <input type="text" id="DescFull" name="DescFull" required placeholder="Provide a brief description of the account">
+    <br>
+
+    <label for="siteAge">Site Age:</label>
+    <input type="number" id="siteAge" name="siteAge" required placeholder="Enter the site age in years">
+    <br>
+
+    <label for="monthlyProfit">Monthly Profit:</label>
+    <input type="number" id="monthlyProfit" name="monthlyProfit" required placeholder="Enter the monthly profit numbers">
+    <br>
+
+    <label for="profitMargin">Profit Margin:</label>
+    <input type="number" id="profitMargin" name="profitMargin" required placeholder="Enter the profit margin in percentage">
+    <br>
+
+    <label for="pageViews">Page Views:</label>
+    <input type="number" id="pageViews" name="pageViews" required placeholder="Enter the average monthly page views">
+    <br>
+
+    <label for="profitMultiple">Profit Multiple:</label>
+    <input type="text" id="profitMultiple" name="profitMultiple" required placeholder="Enter the profit multiple (e.g., 3x)">
+    <br>
+
+    <label for="revenueMultiple">Revenue Multiple:</label>
+    <input type="text" id="revenueMultiple" name="revenueMultiple" required placeholder="Enter the revenue multiple (e.g., 5x)">
+    <br>
+
+    <label for="performanceOverviewimg">Performance Overview Image URL:</label>
+    <input type="text" id="performanceOverviewimg" name="performanceOverviewimg" required placeholder="Enter the URL of the performance overview image">
+    <br>
+
+    <label for="moreDetailsimg">More Details Image URL:</label>
+    <input type="text" id="moreDetailsimg" name="moreDetailsimg" required placeholder="Enter the URL of the more details image">
+    <br>
+
+    <label for="monthlyrevenueimg">Monthly Revenue Image URL:</label>
+    <input type="text" id="monthlyrevenueimg" name="monthlyrevenueimg" required placeholder="Enter the URL of the monthly revenue image">
+    <br>
+
+    <label for="accountAnalyticsimg">Account Analytics Image URL:</label>
+    <input type="text" id="accountAnalyticsimg" name="accountAnalyticsimg" required placeholder="Enter the URL of the account analytics image">
+    <br>
+
+    <label for="googleAnalyticsimg">Google Analytics Image URL:</label>
+    <input type="text" id="googleAnalyticsimg" name="googleAnalyticsimg" required placeholder="Enter the URL of the Google Analytics image">
+    <br>
+
+    <label for="moreDetailsDetails">More Details:</label>
+    <input type="text" id="moreDetailsDetails" name="moreDetailsDetails" required placeholder="Provide more details about the account">
+    <br>
+
+    <label for="monthlyrevenueDetails">Monthly Revenue Details:</label>
+    <input type="text" id="monthlyrevenueDetails" name="monthlyrevenueDetails" required placeholder="Provide details about the monthly revenue">
+    <br>
+
+    <label for="accountAnalyticsDetails">Account Analytics Details:</label>
+    <input type="text" id="accountAnalyticsDetails" name="accountAnalyticsDetails" required placeholder="Provide details about the account analytics">
+    <br>
+
+    <label for="googleAnalyticsDetails">Google Analytics Details:</label>
+  <input type="text" id="googleAnalyticsDetails" name="googleAnalyticsDetails" required placeholder="Provide details about Google Analytics">
+  <br>
+
+  <button type="submit">Submit</button>
+  </form>
+</body>
+<script>
+  const createDetailsForm = document.getElementById('createDetailsForm');
+createDetailsForm.addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent default form submission behavior
+
+  const accountFullname = document.getElementById('accountFullname').value;
+  const descFull = document.getElementById('DescFull').value;
+  const siteAge = document.getElementById('siteAge').value;
+  const monthlyProfit = document.getElementById('monthlyProfit').value;
+  const profitMargin = document.getElementById('profitMargin').value;
+  const pageViews = document.getElementById('pageViews').value;
+  const profitMultiple = document.getElementById('profitMultiple').value;
+  const revenueMultiple = document.getElementById('revenueMultiple').value;
+  const performanceOverviewimg = document.getElementById('performanceOverviewimg').value;
+  const moreDetailsimg = document.getElementById('moreDetailsimg').value;
+  const monthlyrevenueimg = document.getElementById('monthlyrevenueimg').value;
+  const accountAnalyticsimg = document.getElementById('accountAnalyticsimg').value;
+  const googleAnalyticsimg = document.getElementById('googleAnalyticsimg').value;
+  const moreDetailsDetails = document.getElementById('moreDetailsDetails').value;
+  const monthlyrevenueDetails = document.getElementById('monthlyrevenueDetails').value;
+  const accountAnalyticsDetails = document.getElementById('accountAnalyticsDetails').value;
+  const googleAnalyticsDetails = document.getElementById('googleAnalyticsDetails').value;
+  const data = {
+    accountFullname: accountFullname,
+    descFull: descFull,
+    siteAge: siteAge,
+    monthlyProfit: monthlyProfit,
+    profitMargin: profitMargin,
+    pageViews: pageViews,
+    profitMultiple: profitMultiple,
+    revenueMultiple: revenueMultiple,
+    performanceOverviewimg: performanceOverviewimg,
+    moreDetailsimg: moreDetailsimg,
+    monthlyrevenueimg: monthlyrevenueimg,
+    accountAnalyticsimg: accountAnalyticsimg,
+    googleAnalyticsimg: googleAnalyticsimg,
+    moreDetailsDetails: moreDetailsDetails,
+    monthlyrevenueDetails: monthlyrevenueDetails,
+    accountAnalyticsDetails: accountAnalyticsDetails,
+    googleAnalyticsDetails: googleAnalyticsDetails,
+  };
+
+  fetch('/BuyAccounts/create_details_buy_accountsss', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log(data);
+    alert("New Details Created");
+    if (data.message) {
+      alert(data.message);
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+    alert('Error occurred while processing your request');
+  });
+});
+
+</script>
