@@ -5,9 +5,6 @@ const app = express();
 const mongoose = require("mongoose");
 const authrRouter = require('./routes/users.js');
 const methodOverride = require('method-override');
-const multer = require('multer');
-// const storage = require('../../Storage').upload;
-const storage = require('./Storage.js')
 const DatabaseOfMongo = process.env.MONGO_URI;
 const PORT = process.env.PORT || 4000;
 // change the PORT name
@@ -18,7 +15,6 @@ const bodyParser = require('body-parser');
 app.set("view engine", "ejs");
 app.use(express.static('public'));
 app.set("views", path.join(__dirname, "./views"));
-// app.set('views', path.join(__dirname, 'socilviews'));
 const authRoutes = require("./routes/users");
 const router = require("./routes/AdminRoutes.js");
 const socilarouter = require("./routes/SocialRoutes.js");
