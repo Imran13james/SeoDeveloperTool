@@ -36,6 +36,8 @@ const connectWithRetry = () => {
       app.use(bodyParser.json());
       app.use(cors());
       app.use(bodyParser.urlencoded({ extended: true }));
+      app.use(express.json()); // for parsing application/json
+      app.use(express.urlencoded({ extended: true }));
       // Ping route
       app.get("/ping", (req, res) => {
         return res.send({
@@ -49,7 +51,7 @@ const connectWithRetry = () => {
       app.use('/social', socilarouter)
       app.use("/buyandsell", Buyandsell)
       app.use('/socialsell', socialsell)
-      app.use('/BuyAccounts',BuyAccountsRoutes)
+      app.use('/BuyAccounts', BuyAccountsRoutes)
       const server = app.listen(PORT, () => {
         console.log("Server started listening on PORT: " + PORT);
       });

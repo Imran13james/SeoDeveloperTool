@@ -1,7 +1,11 @@
 // const BuyandsellSchma = require("./schema");
 const BuyandsellSchma = require("./scehma");
+const express = require('express')
+const app = express();
+app.use(express.json()); // for parsing application/json
+app.use(express.urlencoded({ extended: true }));
 // const multer = require('multer')
-// const storage = require('../../../Storage').upload;
+// const storage = require('../../../Storage').upload;get
 
 // const fields = [
 //   { name: 'performanceOverviewimg', dest: 'uploads/performanceOverviewimg' },
