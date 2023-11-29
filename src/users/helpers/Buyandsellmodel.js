@@ -1,11 +1,82 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 function validateDescriptionLength(description) {
     const wordCount = description.trim().split(/\s+/).length;
     return wordCount <= 20;
 }
-/// length should less done 20 words
-const buySellSchema = new mongoose.Schema({
+
+const detailsSchema = new Schema({
+    accountFullname: {
+        type: String,
+        required: true,
+    },
+    descFull: {
+        type: String,
+        validate: [validateDescriptionLength, 'Description must be less than 20 words'],
+    },
+    siteAge: {
+        type: Number,
+        required: true,
+    },
+    monthlyProfit: {
+        type: Number,
+        required: true,
+    },
+    profitMargin: {
+        type: Number,
+        required: true,
+    },
+    pageViews: {
+        type: Number,
+        required: true,
+    },
+    profitMultiple: {
+        type: String,
+        required: true,
+    },
+    revenueMultiple: {
+        type: String,
+        required: true,
+    },
+    performanceOverviewimg: {
+        type: String,
+    },
+    performanceOverviewDetails: {
+        type: String,
+    },
+    moreDetailsimg: {
+        type: String,
+    },
+    moreDetailsDetails: {
+        type: String,
+    },
+    monthlyrevenueimg: {
+        type: String,
+    },
+    monthlyrevenueDetails: {
+        type: String,
+    },
+    accountAnalyticsimg: {
+        type: String,
+    },
+    accountAnalyticsDetails: {
+        type: String,
+    },
+    googleAnalyticsimg: {
+        type: String,
+    },
+    googleAnalyticsDetails: {
+        type: String,
+    },
+
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
+});
+
+const buySellPage = new Schema({
     serialNo: {
         type: Number,
         required: true,
@@ -17,7 +88,7 @@ const buySellSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-      },
+    },
     aboutThisAccount: {
         accPrice: {
             type: String,
@@ -32,11 +103,12 @@ const buySellSchema = new mongoose.Schema({
         },
         accountAge: {
             type: Number,
-            require:true,
+            required: true,
         },
     },
+    details: detailsSchema, // Embed detailsSchema as a subdocument
 });
 
-const BuyAndSell = mongoose.model('BuyAccountDb', buySellSchema);
+const BuyAndSell = mongoose.model('BuyAccountDb', buySellPage);
 
 module.exports = BuyAndSell;

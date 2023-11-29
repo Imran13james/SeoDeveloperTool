@@ -74,3 +74,4 @@ const detailsSchema = new Schema({
 const BuyandsellSchma = mongoose.model("accountViewdetails", detailsSchema);
 
 module.exports = BuyandsellSchma;
+// comb

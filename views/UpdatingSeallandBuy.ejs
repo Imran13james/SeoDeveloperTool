@@ -2,181 +2,314 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Buy Record</title>
-    <style>
-      body{
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-        h1{
-        text-align: center;
-        font-size: 2rem;
-        text-transform: capitalize;
-        /* margin-top: 5rem; */
-        color: black;
-        letter-spacing: 0.2rem;
-        font-weight: 600;
-      }
-      form {
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Buy Record</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap');
+
+    input {
+      caret-color: red;
+    }
+
+    body {
+      background: #ecf0f3;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      place-items: center;
+      place-items: center;
+      font-family: poppins;
+    }
+
+    .container {
+      position: relative;
+      width: clamp(250px, 100%, 600px);
+      height: auto;
+      margin-top: 20px;
+      border-radius: 20px;
+      padding: 10px;
+      box-sizing: border-box;
+      background: #ecf0f3;
+      box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+    }
+
+    .inputs {
+      text-align: left;
+      margin-top: 10px;
+    }
+
+    label,
+    input,
+    button,
+    textarea {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: none;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    label {
+      margin-bottom: 4px;
+      font-size: 15px;
+      font-weight: 550;
+      letter-spacing: 0.5px;
+    }
+
+    label:nth-of-type(2) {
+      margin-top: 12px;
+    }
+
+    input::placeholder {
+      color: gray;
+    }
+
+    input,
+    textarea {
+      background: #ecf0f3;
+      padding: 10px;
+      padding-left: 20px;
+      height: 50px;
+      font-size: 14px;
+      border-radius: 50px;
+      box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+    }
+
+    .small {
+      display: flex;
+      margin-top: 30px
+    }
+
+    .inout {
       display: flex;
       flex-direction: column;
-      width: clamp(300px , 100% , 400px);
-      margin: 7rem auto;
-      padding: 20px;  
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      line-height: 2.5rem;
-      outline: none;
-      transition: 0.3s ease-in-out;
-      cursor: pointer;
     }
-    form:hover {
-      box-shadow: rgba(238, 233, 233, 0.19) 0px 10px ,  rgba(219, 212, 212, 0.498) 0px 6px 6px;
-    }
-    form select{
-      padding: 0.5rem 1rem;
-      border-radius: 0.2rem;
-      cursor: pointer;
-      font-size: 0.8rem;
-      font-weight: 700;
-    }
-    textarea , select:hover{
-      border-color: black;
-    }
-    
-    label {
-      display: block;
-      font-size: 1rem;
-      text-transform: capitalize;
-      font-weight: 600;
-      margin-bottom: 5px;
-      color: black;
-    }
-    select , textarea{
-      border: 2px solid rgba(0, 0, 0, 0.324);
-      transition: 0.3s ease-in-out;
-    }
-    textarea{
-      height: 8rem;
-      width: 100%;
+
+    textarea {
+      height: 150px;
+      border-radius: 2px;
+      padding-left: 10px;
       resize: none;
     }
-    
-    input[type="text"] {
-      width: 100%;
-      padding: 5px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
+
+    textarea::placeholder {
+      position: relative;
+      top: 20px;
+      left: 10px
     }
-    
-    button[type="submit"] {
-      margin-top: 10px;
-      padding: 10px;
-      border: none;
+
+    .last {
+      margin-top: 20px;
+    }
+
+    button {
+      color: white;
+      margin-top: 20px;
+      background: #1DA1F2;
+      height: 40px;
+      border-radius: 20px;
       cursor: pointer;
-      background-color: #007bff;
-      color: #fff;
-      transition: 0.3s ease-in-out;
-      border-radius: 5px;
-      font-size: 1rem;
-      font-weight: 700;
+      font-weight: 900;
+      box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
+      transition: 0.5s;
     }
-   
-    
-    input[type="text"]:focus {
-      outline: none;
-      border: 2px solid #007bff ;
+
+    button:hover {
+      box-shadow: none;
     }
-    
-    button[type="submit"]:hover {
-      background-color: #0069d9;
-    }
-    </style>
+  </style>
 </head>
+
 <body>
-  <form id="updateForm" action="/buyandsell/update-buy-sells/:serialNo" method="PUT">
-    <label for="serialNo">Serial No:</label>
-    <input type="number" name="serialNo" id="serialNo" placeholder="Enter Serial No" required>
+  <!-- <form id="updateForm" action="/buyandsell/update-buy-sells/:serialNo" method="PUT"> -->
 
-    <label for="earningPlatforms">Earning Platforms:</label>
-    <input type="text" name="earningPlatforms" id="earningPlatforms" placeholder="Enter EarningPlatforms" required>
+  <form id="updateForm">
+    <div class="container">
+      <h2>Add To Sell and Buy Page</h2>
+      <div class="inputs">
+        <label for="serialNo">Serial No:</label>
+        <input type="number" name="serialNo" id="serialNo" placeholder="Enter Serial No: 12345">
+        <label for="earningPlatforms">Earning Platforms:</label>
+        <input type="text" name="earningPlatforms" id="earningPlatforms"
+          placeholder="Enter EarningPlatforms: YouTube, Facebook">
+        <label for="accPrice">Account Price:</label>
+        <input type="text" name="aboutThisAccount[accPrice]" id="accPrice" placeholder="Enter Account Price: $100">
+        <label for="accName">Account Name:</label>
+        <input type="text" name="aboutThisAccount[accName]" id="accName" placeholder="Enter Account Name: Imran Ali">
+        <label for="accountUrl">Account URL:</label>
+        <input type="url" name="aboutThisAccount[accountUrl]" id="accountUrl"
+          placeholder="Enter Account URL: https://www.bing.com/">
+        <label for="accountAge">Account Age:</label>
+        <input type="number" name="aboutThisAccount[accountAge]" id="accountAge" placeholder="Enter Account Age: 2">
+        <label>Account Fullname</label>
+        <input type="text" id="accountFullname" name="accountFullname"
+          placeholder="Enter the account fullname: Imran Ali">
+        <label>Account Description</label>
+        <textarea type="text" id="descFull" name="descFull"
+          placeholder="Account Description: This is a great account with a lot of potential."> </textarea>
+        <div class="small">
+          <div class="inout">
+            <label>Site Age</label>
+            <input type="number" id="siteAge" name="siteAge" placeholder="Site Age: 1">
+          </div>
+          <div class="inout">
+            <label>Monthly Profit</label>
+            <input type="number" id="monthlyProfit" placeholder="Monthly Profit: $50">
+          </div>
+          <div class="inout">
 
-  
+            <label>Profit Margin</label>
+            <input type="number" id="profitMargin" name="profitMargin" placeholder="Profit Margin: 20%">
+          </div>
+        </div>
+        <div class="small">
+          <div class="inout">
+            <label>Page views</label>
+            <input type="number" id="pageViews" name="pageViews" placeholder="Page views: 1000">
+          </div>
+          <div class="inout">
+            <label>Profit Multiple</label>
+            <input type="text" id="profitMultiple" name="profitMultiple" placeholder="Profit Multiple: 5">
+          </div>
+          <div class="inout">
+            <label>Revenue Multiple</label>
+            <input type="text" id="revenueMultiple" name="revenueMultiple" placeholder="Revenue Multiple: 10">
 
-    <label for="accPrice">Account Price:</label>
-    <input type="text" name="aboutThisAccount[accPrice]" id="accPrice" placeholder="Enter Account Price" required>
+          </div>
+        </div>
+      </div>
+      <div class="last">
+        <label>Performance overview Des</label>
+        <textarea type="text" id="performanceOverviewDetails" name="performanceOverviewDetails"
+          placeholder="Account Description: This account has a great overview."> </textarea>
+        <label>Performance overview img</label>
+        <input type="url" placeholder="Enter Image Url" id="performanceOverviewimg" name="performanceOverviewimg"
+          accept="image/gif, image/jpeg, image/png">
+        <label>More Detalis Des</label>
+        <textarea type="text" id="moreDetailsDetails" name="moreDetailsDetails"
+          placeholder="Account Description: This account has a lot of more details."> </textarea>
+        <label>More Detalis img</label>
+        <input type="url" placeholder="Enter Image Url" id="moreDetailsimg" name="moreDetailsimg"
+          accept="image/gif, image/jpeg, image/png">
+        <label>Account Analytics Des</label>
+        <textarea type="text" id="accountAnalyticsDetails" name="accountAnalyticsDetails"
+          placeholder="Account Description: This account has great analytics."> </textarea>
+        <label>Account Analytics img</label>
+        <input type="url" placeholder="Enter Image Url" id="accountAnalyticsimg" name="accountAnalyticsimg"
+          accept="image/gif, image/jpeg, image/png">
+        <label>Monthly Reviwnew Desc</label>
+        <textarea type="text" id="monthlyrevenueDetails" name="monthlyrevenueDetails"
+          placeholder="Account Description: This account has a great monthly revenue."> </textarea>
+        <label>Monthly Reviwnew img</label>
+        <input type="url" placeholder="Enter Image Url" id="monthlyrevenueimg" name="monthlyrevenueimg"
+          accept="image/gif, image/jpeg, image/png">
+        <label>Google Analytics Desc</label>
+        <textarea type="text" id="googleAnalyticsDetails" name="googleAnalyticsDetails"
+          placeholder="Account Description: This account has great google analytics."> </textarea>
+        <label>Google Analytics img</label>
+        <input type="url" placeholder="Enter Image Url" id="googleAnalyticsimg" name="googleAnalyticsimg"
+          accept="image/gif, image/jpeg, image/png">
+      </div>
+      <button type="submit">Submit Form</button>
+    </div>
+  </form>
 
-    <label for="accName">Account Name:</label>
-    <input type="text" name="aboutThisAccount[accName]" id="accName" placeholder="Enter Account Name" required>
-
-  
-
-    <label for="accountUrl">Account URL:</label>
-    <input type="url" name="aboutThisAccount[accountUrl]" id="accountUrl" placeholder="Enter Account URL" required>
-
-    <label for="accountAge">Account Age:</label>
-    <input type="number" name="aboutThisAccount[accountAge]" id="accountAge" placeholder="Enter Account Age">
-
-    <button type="submit">Update Buy acc </button>
-</form>
 
 
-<script>
-  document.getElementById('updateForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-  
-      const serialNo = document.getElementById('serialNo').value;
-      const earningPlatforms = document.getElementById('earningPlatforms').value;
-      const accPrice = document.getElementById('accPrice').value;
-      const accName = document.getElementById('accName').value;
-      const accountUrl = document.getElementById('accountUrl').value;
-      const accountAge = document.getElementById('accountAge').value;
-  
-      const data = {
-          serialNo: serialNo,
-          earningPlatforms: earningPlatforms,
-          aboutThisAccount: {
-              accPrice: accPrice,
-              accName: accName,
-              accountUrl: accountUrl,
-              accountAge: accountAge,
-          }
-      };
-  
-      fetch('/buyandsell/update-buy-sells/' + serialNo, {
-          method: 'PUT',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
-      })
-      .then(response => {
-          if (!response.ok) {
-              throw new Error('Network response was not ok');
-          }
-          return response.json();
-      })
-      .then(data => {
 
-          alert('Buy account  updated successfully');
-          if (data.message) {
-    // Reset the form after confirmation
-    this.reset();
+  <script>
+    document.getElementById('updateForm').addEventListener('submit', function (event) {
+  event.preventDefault();
 
-    // Rest of your form submission logic
-    // ...
-} else {
-    console.log('User canceled the record creation');
-}
-      })
-      .catch((error) => {
-          console.error('Error:', error);
-          alert('Error updating Buy account record');
-      });
-  });
+  const serialNo = parseInt(document.getElementById('serialNo').value);
+  const earningPlatforms = document.getElementById('earningPlatforms').value;
+  const accountFullname = document.getElementById('accountFullname').value;
+  const descFull = document.getElementById('descFull').value;
+  const siteAge = parseInt(document.getElementById('siteAge').value);
+  const monthlyProfit = parseInt(document.getElementById('monthlyProfit').value);
+  const profitMargin = parseFloat(document.getElementById('profitMargin').value);
+  const pageViews = parseInt(document.getElementById('pageViews').value);
+  const profitMultiple = document.getElementById('profitMultiple').value;
+  const revenueMultiple = document.getElementById('revenueMultiple').value;
+  const performanceOverviewimg = document.getElementById('performanceOverviewimg').value;
+  const performanceOverviewDetails = document.getElementById('performanceOverviewDetails').value;
+  const moreDetailsimg = document.getElementById('moreDetailsimg').value;
+  const moreDetailsDetails = document.getElementById('moreDetailsDetails').value;
+  const monthlyrevenueimg = document.getElementById('monthlyrevenueimg').value;
+  const monthlyrevenueDetails = document.getElementById('monthlyrevenueDetails').value;
+  const accountAnalyticsimg = document.getElementById('accountAnalyticsimg').value;
+  const accountAnalyticsDetails = document.getElementById('accountAnalyticsDetails').value;
+  const googleAnalyticsimg = document.getElementById('googleAnalyticsimg').value;
+  const googleAnalyticsDetails = document.getElementById('googleAnalyticsDetails').value;
+
+  const data = {
+    serialNo: serialNo,
+    earningPlatforms: earningPlatforms,
+    aboutThisAccount: {
+      accPrice: document.getElementById('accPrice').value,
+      accName: document.getElementById('accName').value,
+      accountUrl: document.getElementById('accountUrl').value,
+      accountAge: parseInt(document.getElementById('accountAge').value)
+    },
+    details: {
+      accountFullname: accountFullname,
+      descFull: descFull,
+      siteAge: siteAge,
+      monthlyProfit: monthlyProfit,
+      profitMargin: profitMargin,
+      pageViews: pageViews,
+      profitMultiple: profitMultiple,
+      revenueMultiple: revenueMultiple,
+      performanceOverviewimg: performanceOverviewimg,
+      performanceOverviewDetails: performanceOverviewDetails,
+      moreDetailsimg: moreDetailsimg,
+      moreDetailsDetails: moreDetailsDetails,
+      monthlyrevenueimg: monthlyrevenueimg,
+      monthlyrevenueDetails: monthlyrevenueDetails,
+      accountAnalyticsimg: accountAnalyticsimg,
+      accountAnalyticsDetails: accountAnalyticsDetails,
+      googleAnalyticsimg: googleAnalyticsimg,
+      googleAnalyticsDetails: googleAnalyticsDetails
+    }
+  };
+
+  fetch(`/buyandsell/update-buy-sells/${serialNo}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      if (data.message) {
+        window.alert(data.message);
+      }
+      if (data.message) {
+        // Reset the form after confirmation
+        this.reset();
+
+        // Rest of your form submission logic
+        // ...
+      } else {
+        console.log('User canceled the record creation');
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      window.alert('Error occurred while processing your request');
+    });
+});
+
   </script>
 </body>
 

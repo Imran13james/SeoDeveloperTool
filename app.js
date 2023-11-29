@@ -7,11 +7,9 @@ const authrRouter = require('./routes/users.js');
 const methodOverride = require('method-override');
 const DatabaseOfMongo = process.env.MONGO_URI;
 const PORT = process.env.PORT || 4000;
-// change the PORT name
 const ejs = require('ejs');
 const path = require('path');
 const bodyParser = require('body-parser');
-// Set up EJS and views directory
 app.set("view engine", "ejs");
 app.use(express.static('public'));
 app.set("views", path.join(__dirname, "./views"));
@@ -34,7 +32,14 @@ const connectWithRetry = () => {
       // Middleware
       app.use(methodOverride('_method')); // yeah check krta hai ky put request to update krna hai ya nahi
       app.use(bodyParser.json());
-      app.use(cors());
+      const corsOptions = {
+        // origin: 'http://yourfrontenddomain.com', // Replace with your frontend domain
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        preflightContinue: false,
+        optionsSuccessStatus: 204,
+      };
+      
+      app.use(cors(corsOptions));
       app.use(bodyParser.urlencoded({ extended: true }));
       app.use(express.json()); // for parsing application/json
       app.use(express.urlencoded({ extended: true }));

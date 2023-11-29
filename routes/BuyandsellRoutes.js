@@ -1,5 +1,5 @@
 const express = require('express');
-const { createBuySell, getAllBuySell, updateBuySell, deleteBuySell } = require('../src/users/helpers/BuyAndSellcontrllers');
+const { createBuySell, getAllBuySell, updateBuySell, deleteBuySell, getAllBuySellDetails } = require('../src/users/helpers/BuyAndSellcontrllers');
 const router = express.Router();
 //this router has been checked 
 router.post('/create-buy-sells', createBuySell);
@@ -14,6 +14,7 @@ function welcomepage(req, res) {
 // for front Use Only in next js Ahmed works
 //also work on it and make sure for working in the backend
 router.get('/get-buy-sells', getAllBuySell);
+router.get('/get-buy-sells/:id', getAllBuySellDetails);
 //for updating 
 // checked working or not // filhal kaam nahi kr rha hai 
 router.put('/update-buy-sells/:serialNo', updateBuySell);
@@ -22,7 +23,6 @@ function UpdateBuySellData(req, res) {
 
   res.render('UpdatingSeallandBuy');
 }
-
 router.delete('/delete-buy-sells/:serialNo', deleteBuySell);
 router.get('/delete-buy-sells', DeleteBuySellData);
 function DeleteBuySellData(req, res) {
