@@ -55,15 +55,15 @@ app.use(express.urlencoded({ extended: true }));
 exports.createDetails = async (req, res) => {
   try {
     console.log('Received request to create new details');
-    if (!req.body.accountFullname || !req.body.DescFull || !req.body.siteAge || !req.body.monthlyProfit || !req.body.profitMargin || !req.body.pageViews || !req.body.profitMultiple || !req.body.revenueMultiple || !req.body.performanceOverviewimg || !req.body.moreDetailsimg || !req.body.monthlyrevenueimg || !req.body.accountAnalyticsimg || !req.body.googleAnalyticsimg) {
-      throw new Error('Missing required fields');
-    }
+    // if (!req.body.accountFullname || !req.body.DescFull || !req.body.siteAge || !req.body.monthlyProfit || !req.body.profitMargin || !req.body.pageViews || !req.body.profitMultiple || !req.body.revenueMultiple || !req.body.performanceOverviewimg || !req.body.moreDetailsimg || !req.body.monthlyrevenueimg || !req.body.accountAnalyticsimg || !req.body.googleAnalyticsimg) {
+    //   throw new Error('Missing required fields');
+    // }
 
     console.log('Required fields present, creating new details object');
 
     const newDetails = new BuyandsellSchma({
       accountFullname: req.body.accountFullname,
-      DescFull: req.body.DescFull,
+      descFull: req.body.descFull,
       siteAge: req.body.siteAge,
       monthlyProfit: req.body.monthlyProfit,
       profitMargin: req.body.profitMargin,
@@ -79,6 +79,7 @@ exports.createDetails = async (req, res) => {
       monthlyrevenueDetails: req.body.monthlyrevenueDetails,
       accountAnalyticsDetails: req.body.accountAnalyticsDetails,
       googleAnalyticsDetails: req.body.googleAnalyticsDetails,
+      performanceOverviewDetails: req.body.performanceOverviewDetails
     });
 
     console.log('New details object created, saving to database');
@@ -117,7 +118,7 @@ exports.createDetails = async (req, res) => {
 // Controller function for retrieving all details
 exports.getAllDetails = async (req, res) => {
   try {
-    const allDetails = await BuyandsellSchma.find();
+    const allDetails = await BuyandsellSchma.find().sort({ createdAt: -1 });
     if (allDetails.length === 0) {
       res.status(404).json({ message: 'No details found' });
     } else {

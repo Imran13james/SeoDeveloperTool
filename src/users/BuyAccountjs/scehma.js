@@ -6,12 +6,11 @@ const detailsSchema = new Schema({
     type: String,
     required: true,
   },
-  DescFull: {
+  descFull: {
     type: String,
-    required: true,
   },
   siteAge: {
-    type: String,
+    type: Number,
     required: true,
   },
   monthlyProfit: {
@@ -30,13 +29,14 @@ const detailsSchema = new Schema({
     type: String,
     required: true,
   },
-  performanceOverviewimg: {
-    type: String, 
-  },
   revenueMultiple: {
     type: String,
     required: true,
   },
+  performanceOverviewimg: {
+    type: String, 
+  },
+
   performanceOverviewDetails: {
     type: String,
   },
