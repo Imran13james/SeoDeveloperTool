@@ -116,8 +116,6 @@ const GetSocialsell = async (req, res) => {
       res.status(500).json({ message: 'Error retrieving Social Account details', error: error.message });
     }
   };
-  
-  
   const UpdateSocialsell = async (req, res) => {
     const serialNo = req.params.serialNo;
     const updateData = req.body;
@@ -131,20 +129,16 @@ const GetSocialsell = async (req, res) => {
     }
   
     try {
-      const buySellRecord = await SocialSell.findOne({ serialNo });
+      let buySellRecord = await SocialSell.findOne({ serialNo });
   
       if (!buySellRecord) {
         return res.status(404).json({ message: 'Social Account Record Not Found For The Serial Number' });
       }
   
-      const { earningPlatforms, aboutThisAccount } = updateData;
-      buySellRecord.earningPlatforms = earningPlatforms;
-      buySellRecord.aboutThisAccount = {
-        ...buySellRecord.aboutThisAccount,
-        ...aboutThisAccount,
-      };
+      // Update fields within the details subdocument
+      Object.assign(buySellRecord.details, updateData.details);
   
-      await buySellRecord.save();
+      buySellRecord = await buySellRecord.save(); // Save the updated record
   
       res.status(200).json({ message: 'Social Account Updated Successfully', updatedRecord: buySellRecord });
     } catch (error) {
@@ -152,7 +146,10 @@ const GetSocialsell = async (req, res) => {
     }
   };
   
-
+  
+  
+  module.exports = UpdateSocialsell;
+  
 const DeleteSocialsell = async (req, res) => {
     const serialNo = req.params.serialNo;
     try {
