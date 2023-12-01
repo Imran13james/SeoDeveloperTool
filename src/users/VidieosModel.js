@@ -12,18 +12,18 @@ const socialPanelSchema = new mongoose.Schema({
     required: true,
   },
   video: {
-    title: {
-      type: String,
-      required: true,
-    },
+    // title: {
+    //   type: String,
+    //   required: true,
+    // },
     url: {
       type: String,
       required: true,
     },
-    description: {
-      type: String,
-      required: true,
-    },
+    // description: {
+    //   type: String,
+    //   required: true,
+    // },
   },
 });
 

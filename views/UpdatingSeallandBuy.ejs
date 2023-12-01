@@ -11,6 +11,7 @@
     input {
       caret-color: red;
     }
+
     body {
       background: #ecf0f3;
       display: flex;
@@ -214,77 +215,75 @@
   </form>
 
 
-  <script>
-    document.getElementById('updateForm').addEventListener('submit', function (event) {
-      event.preventDefault();
+<script>
+  document.getElementById('updateForm').addEventListener('submit', function (event) {
+  event.preventDefault();
 
-      const data = {
-      serialNo: parseInt(document.getElementById('serialNo').value),
-      earningPlatforms: document.getElementById('earningPlatforms').value,
-      aboutThisAccount: {
-        accPrice: document.getElementById('accPrice').value,
-        accName: document.getElementById('accName').value,
-        accountUrl: document.getElementById('accountUrl').value,
-        accountAge: parseInt(document.getElementById('accountAge').value),
-      },
-      details: {
-        accountFullname: document.getElementById('accountFullname').value,
-        descFull: document.getElementById('descFull').value,
-        siteAge: parseInt(document.getElementById('siteAge').value),
-        monthlyProfit: parseInt(document.getElementById('monthlyProfit').value),
-        profitMargin: parseFloat(document.getElementById('profitMargin').value),
-        pageViews: parseInt(document.getElementById('pageViews').value),
-        profitMultiple: document.getElementById('profitMultiple').value,
-        revenueMultiple: document.getElementById('revenueMultiple').value,
-        performanceOverviewimg: document.getElementById('performanceOverviewimg').value,
-        performanceOverviewDetails: document.getElementById('performanceOverviewDetails').value,
-        moreDetailsimg: document.getElementById('moreDetailsimg').value,
-        moreDetailsDetails: document.getElementById('moreDetailsDetails').value,
-        monthlyrevenueimg: document.getElementById('monthlyrevenueimg').value,
-        monthlyrevenueDetails: document.getElementById('monthlyrevenueDetails').value,
-        accountAnalyticsimg: document.getElementById('accountAnalyticsimg').value,
-        accountAnalyticsDetails: document.getElementById('accountAnalyticsDetails').value,
-        googleAnalyticsimg: document.getElementById('googleAnalyticsimg').value,
-        googleAnalyticsDetails: document.getElementById('googleAnalyticsDetails').value,
-      },
-    };
+  const data = {
+    serialNo: parseInt(document.getElementById('serialNo').value),
+    earningPlatforms: document.getElementById('earningPlatforms').value,
+    aboutThisAccount: {
+      accPrice: document.getElementById('accPrice').value,
+      accName: document.getElementById('accName').value,
+      accountUrl: document.getElementById('accountUrl').value,
+      accountAge: parseInt(document.getElementById('accountAge').value),
+    },
+    details: {
+      
+      accountFullname: document.getElementById('accountFullname').value,
+      descFull: document.getElementById('descFull').value,
+      siteAge: parseInt(document.getElementById('siteAge').value),
+      monthlyProfit: parseInt(document.getElementById('monthlyProfit').value),
+      profitMargin: parseFloat(document.getElementById('profitMargin').value),
+      pageViews: parseInt(document.getElementById('pageViews').value),
+      profitMultiple: document.getElementById('profitMultiple').value,
+      revenueMultiple: document.getElementById('revenueMultiple').value,
+      performanceOverviewimg: document.getElementById('performanceOverviewimg').value,
+      performanceOverviewDetails: document.getElementById('performanceOverviewDetails').value,
+      moreDetailsimg: document.getElementById('moreDetailsimg').value,
+      moreDetailsDetails: document.getElementById('moreDetailsDetails').value,
+      monthlyrevenueimg: document.getElementById('monthlyrevenueimg').value,
+      monthlyrevenueDetails: document.getElementById('monthlyrevenueDetails').value,
+      accountAnalyticsimg: document.getElementById('accountAnalyticsimg').value,
+      accountAnalyticsDetails: document.getElementById('accountAnalyticsDetails').value,
+      googleAnalyticsimg: document.getElementById('googleAnalyticsimg').value,
+      googleAnalyticsDetails: document.getElementById('googleAnalyticsDetails').value,
+    }
+  };
 
-    fetch(`/buyandsell/update-buy-sells/${data.serialNo}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log(data);
-        alert("Are You Sure You Want Create A New  Account");
-        if (data.message) {
-          window.alert(data.message);
-        }
-        if (data.message) {
-          // Reset the form after confirmation
-          this.reset();
+  fetch(`/buyandsell/update-buy-sells/${data.serialNo}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      alert("Are You Sure You Want Create A New Account");
+      if (data.message) {
+        window.alert(data.message);
+      }
+      if (data.message) {
+        this.reset();
 
-          // Rest of your form submission logic
-          // ...
-        } else {
-          console.log('User canceled the record creation');
-        }
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        alert('Error occurred while processing your request');
-      });
-  });
+      } else {
+        console.log('User canceled the record creation');
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      alert('Error occurred while processing your request');
+    });
+});
 
-  </script>
+</script>
 </body>
 
 </html>

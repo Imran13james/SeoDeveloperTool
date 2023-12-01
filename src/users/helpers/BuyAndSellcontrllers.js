@@ -26,9 +26,6 @@ const createBuySell = async (req, res) => {
         res.status(500).json({ message: 'Error Creating Buy and Sell  Account Record', error: error.message });
     }
 };
-
-// ==========================
-
 const getAllBuySell = async (req, res) => {
     try {
       const buySellRecords = await BuyAndSell.find().sort({ createdAt: -1 }).limit(5);
@@ -51,7 +48,7 @@ const getAllBuySell = async (req, res) => {
       res.status(500).json({ message: 'Error Retrieving Buy and Sell  Account', error: error.message });
     }
   };
-  
+
   const getAllBuySellDetails = async (req, res) => {
     try {
       const { id } = req.params;
@@ -66,7 +63,6 @@ const getAllBuySell = async (req, res) => {
       res.status(500).json({ message: 'Error retrieving Buy and Sell  Account details', error: error.message });
     }
   };
-
   const updateBuySell = async (req, res) => {
     const serialNo = req.params.serialNo;
     const updateData = req.body;
@@ -80,21 +76,29 @@ const getAllBuySell = async (req, res) => {
     }
   
     try {
-      let buySellRecord = await BuyAndSell.findOne({ serialNo });
+      let buySellRecord = await BuyAndSell.findOne({ serialNo: serialNo });
   
       if (!buySellRecord) {
-        return res.status(404).json({ message: 'Buy and Sell  Account Record Not Found For The Serial Number' });
+        return res.status(404).json({ message: 'Buy and Sell Account Record Not Found For The Serial Number' });
       }
   
-      Object.assign(buySellRecord.details, updateData.details);
-  
+      if (updateData.details) {
+        Object.assign(buySellRecord.details, updateData.details);
+      }
+      
+      // Update aboutThisAccount
+      if (updateData.aboutThisAccount) {
+        Object.assign(buySellRecord.aboutThisAccount, updateData.aboutThisAccount);
+      }
+      // Object.assign( updateData);
       buySellRecord = await buySellRecord.save(); // Save the updated record
   
-      res.status(200).json({ message: 'Buy and Sell  Account Updated Successfully', updatedRecord: buySellRecord });
+      res.status(200).json({ message: 'Buy and Sell Account Updated Successfully', updatedRecord: buySellRecord });
     } catch (error) {
-      res.status(500).json({ message: 'Error updating Buy and Sell  Account', error: error.message });
+      res.status(500).json({ message: 'Error updating Buy and Sell Account', error: error.message });
     }
   };
+  
   
 const deleteBuySell = async (req, res) => {
     const serialNo = req.params.serialNo; 

@@ -103,15 +103,14 @@ const GetSocialsell = async (req, res) => {
   
   const GetSocialsellDetails = async (req, res) => {
     try {
-      const { id } = req.params; // Assuming you have an ID parameter for the specific record
-  
+      const { id } = req.params; 
       const socialSellRecord = await SocialSell.findById(id);
   
       if (!socialSellRecord) {
         return res.status(404).json({ message: 'Social Account not found' });
       }
   
-      res.json(socialSellRecord); // Sending the full details of the record
+      res.json(socialSellRecord); 
     } catch (error) {
       res.status(500).json({ message: 'Error retrieving Social Account details', error: error.message });
     }
@@ -129,23 +128,26 @@ const GetSocialsell = async (req, res) => {
     }
   
     try {
-      let buySellRecord = await SocialSell.findOne({ serialNo });
+      let buySellRecord = await SocialSell.findOne({ serialNo: serialNo });
   
       if (!buySellRecord) {
-        return res.status(404).json({ message: 'Social Account Record Not Found For The Serial Number' });
+        return res.status(404).json({ message: 'Buy and Sell Account Record Not Found For The Serial Number' });
       }
   
-      // Update fields within the details subdocument
-      Object.assign(buySellRecord.details, updateData.details);
+      if (updateData.details) {
+        Object.assign(buySellRecord.details, updateData.details);
+      }
+      
+      if (updateData.aboutThisAccount) {
+        Object.assign(buySellRecord.aboutThisAccount, updateData.aboutThisAccount);
+      }
+      buySellRecord = await buySellRecord.save(); 
   
-      buySellRecord = await buySellRecord.save(); // Save the updated record
-  
-      res.status(200).json({ message: 'Social Account Updated Successfully', updatedRecord: buySellRecord });
+      res.status(200).json({ message: 'Buy and Sell Account Updated Successfully', updatedRecord: buySellRecord });
     } catch (error) {
-      res.status(500).json({ message: 'Error updating Social Account', error: error.message });
+      res.status(500).json({ message: 'Error updating Buy and Sell Account', error: error.message });
     }
-  };
-  
+  }; 
   
   
   module.exports = UpdateSocialsell;
