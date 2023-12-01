@@ -141,6 +141,9 @@ const GetSocialsell = async (req, res) => {
       if (updateData.aboutThisAccount) {
         Object.assign(buySellRecord.aboutThisAccount, updateData.aboutThisAccount);
       }
+      if (updateData.aboutThisAccount) {
+        Object.assign(buySellRecord.aboutThisAccount, updateData.aboutThisAccount);
+      }
       buySellRecord = await buySellRecord.save(); 
   
       res.status(200).json({ message: 'Buy and Sell Account Updated Successfully', updatedRecord: buySellRecord });
