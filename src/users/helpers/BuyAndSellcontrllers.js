@@ -86,13 +86,10 @@ const getAllBuySell = async (req, res) => {
         Object.assign(buySellRecord.details, updateData.details);
       }
       
-      // Update aboutThisAccount
       if (updateData.aboutThisAccount) {
         Object.assign(buySellRecord.aboutThisAccount, updateData.aboutThisAccount);
       }
-      // Object.assign( updateData);
-      buySellRecord = await buySellRecord.save(); // Save the updated record
-  
+      buySellRecord = await buySellRecord.save(); 
       res.status(200).json({ message: 'Buy and Sell Account Updated Successfully', updatedRecord: buySellRecord });
     } catch (error) {
       res.status(500).json({ message: 'Error updating Buy and Sell Account', error: error.message });

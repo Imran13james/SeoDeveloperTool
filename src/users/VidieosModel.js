@@ -8,7 +8,7 @@ const socialPanelSchema = new mongoose.Schema({
   },
   socialMedia: {
     type: String,
-    enum: ['Youtube', 'Facebook', 'Instagram', 'Twitter', 'TikTok'],
+    enum: ['Youtube', 'Facebook', 'Instagram', 'Twitter', 'TikTok','Other'],
     required: true,
   },
   video: {

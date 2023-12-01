@@ -27,15 +27,14 @@ const showVideos = async (req, res) => {
   
       socialLinks.forEach(socialLink => {
         const { socialMedia, video } = socialLink;
-        const { title, url, description } = video;
+        const {url } = video;
   
         allVideos.push({
           socialMedia,
           video: {
-            title,
-            url,
-            description,
-            videoId: socialLink.videoId 
+            videoId: socialLink.videoId ,
+            url
+            
           }
         });
       });
@@ -68,7 +67,8 @@ const showVideo = async (req, res) => {
         console.error('Error Fetching Earning Media Panel Data:', error);
         res.status(500).send({ origin: 'Internal Server Error origin', error: error.message });
     }
-};const updateVideoByID = async (req, res) => {
+};
+const updateVideoByID = async (req, res) => {
   try {
     const videoId = req.params.videoId; 
     const updatedFields = req.body;
@@ -85,19 +85,19 @@ const showVideo = async (req, res) => {
     if (updatedFields.socialMedia !== undefined) {
       video.socialMedia = updatedFields.socialMedia;
     }
-    if (updatedFields.title !== undefined) {
-      video.video.title = updatedFields.title;
-    }
+    // if (updatedFields.title !== undefined) {
+    //   video.video.title = updatedFields.title;
+    // }
     if (updatedFields.url !== undefined) {
       video.video.url = updatedFields.url;
     }
-    if (updatedFields.description !== undefined) {
-      video.video.description = updatedFields.description;
-    }
+    // if (updatedFields.description !== undefined) {
+    //   video.video.description = updatedFields.description;
+    // }
 
     const updatedVideo = await video.save();
 
-    console.log('Updated Video:', updatedVideo);
+    // console.log('Updated Video:', updatedVideo);
 
     res.status(200).json({ message: 'Video Updated Successfully', updatedVideo });
   } catch (error) {
@@ -107,10 +107,14 @@ const showVideo = async (req, res) => {
 };
 const addVideo = async (req, res) => {
   try {
-    const { socialMedia, videoTitle, videoUrl, videoDescription, videoId } = req.body;
+    const { socialMedia,
+      //  videoTitle, 
+      videoUrl,
+      //  videoDescription, 
+       videoId } = req.body;
 
-    if (!videoUrl || !videoTitle) {
-      return res.status(400).json({ message: 'Video URL and title are required' });
+    if (!videoUrl || !videoId) {
+      return res.status(400).json({ message: 'Video URL and videoId are required' });
     }
 
     const existingVideo = await SocialLinks.findOne({ 'video.url': videoUrl });
@@ -122,9 +126,9 @@ const addVideo = async (req, res) => {
       videoId,
       socialMedia,
       video: {
-        title: videoTitle,
+        // title: videoTitle,
         url: videoUrl,
-        description: videoDescription,
+        // description: videoDescription,
       },
     });
 
@@ -161,7 +165,6 @@ module.exports = {
     showVideos,
     updateVideoByID,
     addVideo,
-    // deleteVideo,
     showVideo,
     AdminVideo
 };

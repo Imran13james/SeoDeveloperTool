@@ -141,13 +141,14 @@
       <option value="Instagram">Instagram</option>
       <option value="Twitter">Twitter</option>
       <option value="TikTok">TikTok</option>
+      <option value="TikTok">Other</option>
     </select>
-    <label for="videoTitle">Video Title:</label>
-    <input type="text" name="videoTitle" id="videoTitle" placeholder="Enter video title">
+    <!-- <label for="videoTitle">Video Title:</label> -->
+    <!-- <input type="text" name="videoTitle" id="videoTitle" placeholder="Enter video title"> -->
 
     <label for="videoUrl">Video URL:</label>    <input type="text" name="videoUrl" id="videoUrl" placeholder="Enter video URL">
 
-    <label for="videoDescription">Video Description:</label> <textarea name="videoDescription" id="videoDescription" placeholder="Enter video description"></textarea>
+    <!-- <label for="videoDescription">Video Description:</label> <textarea name="videoDescription" id="videoDescription" placeholder="Enter video description"></textarea> -->
 
     <button type="submit">Update Social Links</button>
   </form>
@@ -156,15 +157,15 @@
       event.preventDefault();
       const videoId = document.getElementById('videoIdInput').value;
       const socialMedia = document.getElementById('socialMedia').value;
-      const videoTitle = document.getElementById('videoTitle').value;
+      // const videoTitle = document.getElementById('videoTitle').value;
       const videoUrl = document.getElementById('videoUrl').value;
-      const videoDescription = document.getElementById('videoDescription').value;
+      // const videoDescription = document.getElementById('videoDescription').value;
 
       const updatedFields = {
         socialMedia: socialMedia,
-        title: videoTitle,
+        // title: videoTitle,
         url: videoUrl,
-        description: videoDescription
+        // description: videoDescription
       };
 
       try {
@@ -177,15 +178,12 @@
         });
 
         if (response.ok) {
-          console.log('Video updated successfully');
           window.alert('Video updated successfully'); // Show a dialog box
           window.location.reload(); // Refresh the page
         } else {
-          console.error('Error updating video');
           window.alert('Error updating video'); // Show a dialog box for error
         }
       } catch (error) {
-        console.error('Error updating video:', error);
         window.alert('Error updating video: ' + error.message); // Show a dialog box with the error message
       }
     });
