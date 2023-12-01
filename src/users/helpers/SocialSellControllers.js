@@ -141,8 +141,8 @@ const GetSocialsell = async (req, res) => {
       if (updateData.aboutThisAccount) {
         Object.assign(buySellRecord.aboutThisAccount, updateData.aboutThisAccount);
       }
-      if (updateData.aboutThisAccount) {
-        Object.assign(buySellRecord.aboutThisAccount, updateData.aboutThisAccount);
+      if (updateData.earningPlatforms) {
+        buySellRecord.earningPlatforms = updateData.earningPlatforms;
       }
       buySellRecord = await buySellRecord.save(); 
   
