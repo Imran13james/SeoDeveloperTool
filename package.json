@@ -22,6 +22,7 @@
     "method-override": "^3.0.0",
     "mongo-sanitize": "^1.1.0",
     "mongoose": "^5.11.10",
+    "multer-gridfs-storage": "^5.0.2",
     "nanoid": "^3.1.20",
     "nodemailer": "^6.4.17",
     "uuid": "^8.3.2"

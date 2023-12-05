@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete Account</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap');
+
+    input {
+      caret-color: red;
+    }
+
+    body {
+      background: #ecf0f3;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      place-items: center;
+      place-items: center;
+      font-family: poppins;
+    }
+
+    .container {
+      position: relative;
+      width: clamp(250px, 100%, 600px);
+      height: auto;
+      margin-top: 20px;
+      border-radius: 20px;
+      padding: 10px;
+      box-sizing: border-box;
+      background: #ecf0f3;
+      box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+    }
+
+    .inputs {
+      text-align: left;
+      margin-top: 10px;
+    }
+
+    label,
+    input,
+    button,
+    textarea {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: none;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    label {
+      margin-bottom: 4px;
+      font-size: 15px;
+      font-weight: 550;
+      letter-spacing: 0.5px;
+    }
+
+    label:nth-of-type(2) {
+      margin-top: 12px;
+    }
+
+    input::placeholder {
+      color: gray;
+    }
+
+    input,
+    textarea {
+      background: #ecf0f3;
+      padding: 10px;
+      padding-left: 20px;
+      height: 50px;
+      font-size: 14px;
+      border-radius: 50px;
+      box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+    }
+
+    .small {
+      display: flex;
+      margin-top: 30px
+    }
+
+    .inout {
+      display: flex;
+      flex-direction: column;
+    }
+
+    textarea {
+      height: 150px;
+      border-radius: 2px;
+      padding-left: 10px;
+      resize: none;
+    }
+
+    textarea::placeholder {
+      position: relative;
+      top: 20px;
+      left: 10px
+    }
+
+    .last {
+      margin-top: 20px;
+    }
+
+    button {
+      color: white;
+      margin-top: 20px;
+      background: #1DA1F2;
+      height: 40px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 900;
+      box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
+      transition: 0.5s;
+    }
+
+    button:hover {
+      box-shadow: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Delete Account</h1>
+  <form action="/accounts/:id" method="POST">
+    <label for="id">Account ID:</label>
+    <input type="text" name="id" id="id" required>
+    <br>
+    <button type="submit">Delete Account</button>
+  </form>
+</body>
+</html>

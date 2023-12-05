@@ -1,27 +1,30 @@
 const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
+const { GridFsStorage } = require('multer-gridfs-storage');
+const mongoose = require('mongoose');
 
-const createUploadsFolder = () => {
-  const uploadPath = path.join(__dirname, 'uploads');
-  if (!fs.existsSync(uploadPath)) {
-    fs.mkdirSync(uploadPath);
-  }
-};
+// Load environment variables from a .env file if required
+require('dotenv').config();
 
-createUploadsFolder();
+// Create connection to MongoDB
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+const conn = mongoose.connection;
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname);
-    const filename = path.basename(file.originalname).replace(ext, '');
-    const uniqueFilename = filename + '-' + Date.now() + ext;
-    cb(null, uniqueFilename);
+// Initialize GridFS storage engine
+const storage = new GridFsStorage({
+  url: process.env.MONGO_URI, // MongoDB connection URL using environment variable
+  options: { useNewUrlParser: true, useUnifiedTopology: true },
+  file: (req, file) => {
+    return {
+      filename: file.originalname,
+      bucketName: 'uploads', // Name of the MongoDB collection (bucket) where files will be stored
+    };
   },
 });
-const upload = multer({ storage: storage });
+
+// Initialize Multer with GridFS storage
+const upload = multer({ storage });
 
 module.exports = upload;
