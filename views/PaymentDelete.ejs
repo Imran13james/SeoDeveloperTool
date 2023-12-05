@@ -4,130 +4,91 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Delete Account</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap');
-
-    input {
-      caret-color: red;
-    }
-
-    body {
-      background: #ecf0f3;
+ <style>
+      body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      text-align: center;
       justify-content: center;
-      place-items: center;
-      place-items: center;
-      font-family: poppins;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      color: white;
     }
 
-    .container {
-      position: relative;
-      width: clamp(250px, 100%, 600px);
-      height: auto;
-      margin-top: 20px;
-      border-radius: 20px;
-      padding: 10px;
-      box-sizing: border-box;
-      background: #ecf0f3;
-      box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
-    }
-
-    .inputs {
-      text-align: left;
-      margin-top: 10px;
-    }
-
-    label,
-    input,
-    button,
-    textarea {
-      display: block;
-      width: 100%;
-      padding: 0;
-      border: none;
-      outline: none;
-      box-sizing: border-box;
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     label {
-      margin-bottom: 4px;
-      font-size: 15px;
-      font-weight: 550;
-      letter-spacing: 0.5px;
+      margin-bottom: 10px;
     }
 
-    label:nth-of-type(2) {
-      margin-top: 12px;
-    }
-
-    input::placeholder {
-      color: gray;
-    }
-
-    input,
-    textarea {
-      background: #ecf0f3;
+    input[type="text"] {
+      margin-bottom: 20px;
       padding: 10px;
-      padding-left: 20px;
-      height: 50px;
-      font-size: 14px;
-      border-radius: 50px;
-      box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+      border: none;
+      border-radius: 5px;
+      outline: none;
     }
 
-    .small {
-      display: flex;
-      margin-top: 30px
-    }
-
-    .inout {
-      display: flex;
-      flex-direction: column;
-    }
-
-    textarea {
-      height: 150px;
-      border-radius: 2px;
-      padding-left: 10px;
-      resize: none;
-    }
-
-    textarea::placeholder {
-      position: relative;
-      top: 20px;
-      left: 10px
-    }
-
-    .last {
-      margin-top: 20px;
-    }
-
-    button {
+    input[type="submit"] {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
       color: white;
-      margin-top: 20px;
-      background: #1DA1F2;
-      height: 40px;
-      border-radius: 20px;
+      background-color: #0072ff;
       cursor: pointer;
-      font-weight: 900;
-      box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
-      transition: 0.5s;
+      transition: background-color 0.3s ease;
+      outline: none;
     }
 
-    button:hover {
-      box-shadow: none;
+    input[type="submit"]:hover {
+      background-color: #00c6ff;
     }
-  </style>
+
+    input[type="submit"]:active {
+      transform: scale(0.98);
+    }
+
+ </style>
 </head>
 <body>
-  <h1>Delete Account</h1>
-  <form action="/accounts/:id" method="POST">
+  
+  <form id="deleteForm">
+    <h1>Delete Account</h1>
+    <h5> Payment Details</h5>
     <label for="id">Account ID:</label>
-    <input type="text" name="id" id="id" required>
+    <input type="text" name="id" id="id" required placeholder="ID e.g 656ded5b141aa3060527545f">
     <br>
     <button type="submit">Delete Account</button>
   </form>
+
+  <script>
+    document.getElementById('deleteForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent the form from being submitted normally
+
+      const id = document.getElementById('id').value; // Get the ID from the input field
+
+      // Send a DELETE request to the server
+      fetch('/Account/Delete_Payment_accounts_deatils/' + id, {
+        method: 'DELETE',
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.message) {
+          alert(data.message); // Show a message to the user
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    });
+  </script>
+
 </body>
 </html>

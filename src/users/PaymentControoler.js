@@ -58,7 +58,7 @@ exports.readFiles = async (req, res) => {
   exports.deletAccount =  async (req, res) => {
   try {
     const accountId = req.params.id;
-    const account = await AccountSchema.findByIdAndDelete(accountId);
+    const account = await Account.findByIdAndDelete(accountId);
 
     if (!account) {
       res.status(404).json({ message: 'Account not found.' });

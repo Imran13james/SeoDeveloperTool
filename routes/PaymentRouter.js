@@ -5,34 +5,50 @@ const { GridFSBucket } = require('mongodb');
 const conn = mongoose.connection;
 let gfs;
 const upload = require('../Storage');
-const { uploadImage, readFiles, RenderALlDetails } = require('../src/users/PaymentControoler');
-
+const { uploadImage, readFiles, RenderALlDetails, deletAccount } = require('../src/users/PaymentControoler');
+//this is the route for uploading the image like this is the route you need to fetch in front 
 router.post('/upload-image', upload.single('image'), uploadImage);
-router.get('/All_Payment_accounts_deatils',readFiles)
-router.delete('/Delete_Payment_accounts_deatils',readFiles)
-router.get("/Create_Payment_accounts_deatils",renderCreateForpament)
-router.get("/Get_All_Payment_accounts_deatils",renderGetAllDeatils)
-router.get('/accounts',RenderALlDetails)
-function renderCreateForpament(req, res) {
-    res.render('PaymentAdd');
-  }
-  function renderGetAllDeatils(req, res) {
-    res.render('GetAllPagment');
-  }
+// you can get All the detai;s in the Api form in this way you can get id and delete payement 
+router.get('/All_Payment_accounts_deatils', readFiles)
+//  for deleting the comopnent 
+router.delete('/Delete_Payment_accounts_deatils/:id', deletAccount)
+// i am going to commint it so you upload it using front 
+router.get("/Create_Payment_accounts_deatils", renderCreateForpament)
+// i am going to delete it because not need of this
+router.get("/Get_All_Payment_accounts_deatils", renderGetAllDeatils)
 
-  conn.once('open', () => {
-    gfs = new GridFSBucket(conn.db, {
-      bucketName: 'uploads' // Your bucket name where images are stored
-    });
+//this is the ui you get all the deatils about the account payments
+router.get('/accounts', RenderALlDetails)
+function renderCreateForpament(req, res) {
+  res.render('PaymentAdd');
+}
+function renderGetAllDeatils(req, res) {
+  res.render('GetAllPagment');
+}
+
+conn.once('open', () => {
+  gfs = new GridFSBucket(conn.db, {
+    bucketName: 'uploads' // Your bucket name where images are stored
   });
-  router.get('/image/:filename', (req, res) => {
-    gfs.find({ filename: req.params.filename }).toArray((err, files) => {
-      if (!files || files.length === 0) {
-        return res.status(404).json({ message: 'File not found' });
-      }
-  
-      const readstream = gfs.openDownloadStreamByName(req.params.filename);
-      readstream.pipe(res);
-    });
+});
+// here in this way the imagee is showing
+router.get('/image/:filename', (req, res) => {
+  gfs.find({ filename: req.params.filename }).toArray((err, files) => {
+    if (!files || files.length === 0) {
+      return res.status(404).json({ message: 'File not found' });
+    }
+
+    const readstream = gfs.openDownloadStreamByName(req.params.filename);
+    readstream.pipe(res);
   });
+});
+
+router.get('/Welcome_to_Payment', WelcomeEarningVideo)
+function WelcomeEarningVideo(req, res) {
+  res.render('WelcomePayment');
+}
+router.get('/Delete_the_Payment_deatails', WelcomeEarningDelete)
+function WelcomeEarningDelete(req, res) {
+  res.render('PaymentDelete');
+}
 module.exports = router;
