@@ -4,14 +4,14 @@ const User = require('./user.model');
 const transport = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'ahmaddeveloper122@gmail.com',
-        pass: "bjguyrwelbhveqqy"
+        user: 'seotoolers@gmail.com',
+        pass: "gzuc utmx nxkb qcni"
     },
 });
 
 async function sendMail(userEmail, authenticationCode) {
     const mailOptions = {
-        from: 'ahmad developer',
+        from: 'Seotoolers Company',
         to: userEmail,
         subject: 'Verify your email',
         text: `Your authentication code is: ${authenticationCode}`,
