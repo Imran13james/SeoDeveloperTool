@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 const authrRouter = require('./routes/users.js');
 const methodOverride = require('method-override');
 const DatabaseOfMongo = process.env.MONGO_URI;
-const PORT = process.env.PORT
 const ejs = require('ejs');
 const path = require('path');
 const bodyParser = require('body-parser');
