@@ -50,6 +50,20 @@ const connectWithRetry = () => {
           message: "Server is healthy",
         });
       });
+      const fs = require('fs');
+const directory = '/var/task/uploads';
+
+// Check if the directory exists, and if not, create it
+if (!fs.existsSync(directory)) {
+  fs.mkdirSync(directory, { recursive: true }, (err) => {
+    if (err) {
+      console.error('Error creating directory:', err);
+    } else {
+      console.log('Directory created successfully:', directory);
+    }
+  });
+}
+
       app.use("/users", authRoutes);
       app.use("/sell", authrRouter);
       app.use("/admin", router)
